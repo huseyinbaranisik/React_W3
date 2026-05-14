@@ -23,6 +23,7 @@ export interface CourseContextType {
   setActiveLesson: (lesson: Lesson) => void;
   completedLessons: string[]; // lesson ids
   markComplete: (id: string) => void;
+  markAllComplete: () => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   sidebarOpen: boolean;
