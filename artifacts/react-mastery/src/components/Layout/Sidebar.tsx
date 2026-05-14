@@ -77,7 +77,7 @@ export function Sidebar() {
       <motion.div
         animate={{ width: sidebarCollapsed ? COLLAPSED_W : EXPANDED_W }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="hidden md:block relative shrink-0 h-[calc(100vh-4rem)] sticky top-16 self-start overflow-visible"
+        className="hidden md:block relative shrink-0 h-full overflow-visible"
         data-testid="sidebar"
       >
         {/* Expanded panel */}
