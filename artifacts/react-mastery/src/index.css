@@ -196,3 +196,16 @@
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
+
+/* Typing cursor for landing page */
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background-color: #22C55E;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+}

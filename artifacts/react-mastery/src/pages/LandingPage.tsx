@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Terminal, Code2, LineChart, ChevronRight, Sun, Moon } from 'lucide-react';
 import { useThemeContext } from '../context/ThemeContext';
 
+const TYPING_TEXTS = ['bir adımda', 'hızla öğren', 'ustaca yaz'];
+const TYPING_SPEED = 80;
+const ERASE_SPEED = 50;
+const PAUSE_MS = 1600;
+
 export function LandingPage() {
   const { theme, toggleTheme } = useThemeContext();
+  const [displayText, setDisplayText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
+  const [isErasing, setIsErasing] = useState(false);
+
+  useEffect(() => {
+    const target = TYPING_TEXTS[textIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isErasing && displayText.length < target.length) {
+      timeout = setTimeout(() => setDisplayText(target.slice(0, displayText.length + 1)), TYPING_SPEED);
+    } else if (!isErasing && displayText.length === target.length) {
+      timeout = setTimeout(() => setIsErasing(true), PAUSE_MS);
+    } else if (isErasing && displayText.length > 0) {
+      timeout = setTimeout(() => setDisplayText(displayText.slice(0, -1)), ERASE_SPEED);
+    } else if (isErasing && displayText.length === 0) {
+      setIsErasing(false);
+      setTextIndex((i) => (i + 1) % TYPING_TEXTS.length);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isErasing, textIndex]);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
-      {/* Terminal Grid Background Effect */}
+      {/* Terminal Grid Background */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: 'linear-gradient(to right, rgba(34,197,94,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(34,197,94,0.05) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
@@ -48,13 +74,15 @@ export function LandingPage() {
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             v3.0 Yayında
           </div>
+
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
-            React'ı Ustaca Öğren <br/>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-green-400 to-secondary relative">
-              bir adımda
-              <span className="absolute -right-6 top-0 bottom-0 w-4 bg-primary animate-pulse inline-block opacity-70"></span>
+            React'ı Ustaca Öğren <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-green-400 to-secondary inline-flex items-baseline gap-1">
+              {displayText}
+              <span className="typing-cursor" />
             </span>
           </h1>
+
           <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             Modern React ekosistemini etkileşimli dersler, canlı kod editörü ve gerçek dünya örnekleriyle sıfırdan zirveye öğrenin.
           </p>
@@ -67,7 +95,7 @@ export function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-24">
           {[
-            { icon: <Terminal className="w-6 h-6 text-primary" />, title: "12 Kapsamlı Ders", desc: "Temel kavramlardan ileri seviye hook'lara kadar özenle hazırlanmış müfredat." },
+            { icon: <Terminal className="w-6 h-6 text-primary" />, title: "20 Kapsamlı Ders", desc: "Temel kavramlardan ileri seviye hook'lara kadar özenle hazırlanmış müfredat." },
             { icon: <Code2 className="w-6 h-6 text-primary" />, title: "Canlı Kod Editörü", desc: "Öğrendiklerinizi anında uygulayın, hatalarınızı görün ve anında düzeltin." },
             { icon: <LineChart className="w-6 h-6 text-primary" />, title: "İlerleme Takibi", desc: "LocalStorage tabanlı ilerleme takibi ile nerede kaldığınızı asla unutmayın." }
           ].map((feature, i) => (
@@ -87,13 +115,13 @@ export function LandingPage() {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 flex items-center justify-center gap-8 text-sm font-medium text-muted-foreground"
         >
-          <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> 12 Ders</div>
+          <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> 20 Ders</div>
           <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-blue-500"></span> 3 Kategori</div>
           <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-purple-500"></span> LocalStorage Kayıt</div>
         </motion.div>

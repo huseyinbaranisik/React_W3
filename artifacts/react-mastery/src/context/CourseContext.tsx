@@ -11,6 +11,7 @@ export function CourseProvider({ children }: { children: ReactNode }) {
   const [completedLessons, setCompletedLessons] = useLocalStorage<string[]>('rm-completed-lessons', []);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage<boolean>('rm-sidebar-collapsed', false);
   const [userName, setUserName] = useLocalStorage<string>('rm-username', 'Geliştirici');
 
   const markComplete = (id: string) => {
@@ -36,6 +37,8 @@ export function CourseProvider({ children }: { children: ReactNode }) {
       setSearchQuery,
       sidebarOpen,
       setSidebarOpen,
+      sidebarCollapsed,
+      setSidebarCollapsed,
       userName,
       setUserName
     }}>
