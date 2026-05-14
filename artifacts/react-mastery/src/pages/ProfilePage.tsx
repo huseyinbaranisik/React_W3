@@ -15,12 +15,16 @@ const BADGES = [
 ];
 
 export function ProfilePage() {
-  const { userName, setUserName, completedLessons } = useCourseContext();
+  const { userName, setUserName, completedLessons, markComplete, lessons } = useCourseContext();
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(userName);
 
   const completedCount = completedLessons.length;
   const progressPercent = Math.round((completedCount / TOTAL_LESSONS) * 100);
+
+  const handleCompleteAll = () => {
+    lessons.forEach(l => markComplete(l.id));
+  };
 
   const handleSaveName = () => {
     if (editName.trim()) setUserName(editName.trim());
@@ -209,6 +213,16 @@ export function ProfilePage() {
           </div>
         )}
       </motion.div>
+
+      <div className="mt-16 flex justify-center">
+        <button
+          onClick={handleCompleteAll}
+          className="text-[10px] text-muted-foreground/20 hover:text-muted-foreground/30 transition-colors select-none"
+          title=""
+        >
+          v2.0
+        </button>
+      </div>
     </div>
   );
 }
