@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ChevronRight, X } from 'lucide-react';
-import { useLessonContext } from '../../context/LessonContext';
+import { useCourseContext } from '../../context/CourseContext';
 
 export function Sidebar() {
-  const { lessons, completedLessons, searchQuery, sidebarOpen, setSidebarOpen } = useLessonContext();
-  const [location] = useLocation();
+  const { lessons, completedLessons, searchQuery, sidebarOpen, setSidebarOpen, setSearchQuery } = useCourseContext();
+  const location = useLocation();
 
-  const categories = ['Fundamentals', 'Hooks', 'Advanced'] as const;
+  const categories = ['Temel Kavramlar', 'Hook\'lar', 'İleri Seviye'] as const;
 
   const filteredLessons = lessons.filter(lesson => 
-    lesson.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    lesson.category.toLowerCase().includes(searchQuery.toLowerCase())
+    lesson.baslik.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    lesson.kategori.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const totalCompleted = completedLessons.length;
@@ -48,7 +48,7 @@ export function Sidebar() {
         <div className="p-4 md:hidden">
           <input 
             type="text" 
-            placeholder="Search lessons..." 
+            placeholder="Ders Ara..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-10 px-4 rounded-lg bg-input/50 border border-sidebar-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm text-foreground"
@@ -57,7 +57,7 @@ export function Sidebar() {
 
         <div className="flex-1 overflow-y-auto py-4 custom-scrollbar">
           {categories.map((category, catIndex) => {
-            const categoryLessons = filteredLessons.filter(l => l.category === category);
+            const categoryLessons = filteredLessons.filter(l => l.kategori === category);
             if (categoryLessons.length === 0) return null;
 
             return (
@@ -67,7 +67,7 @@ export function Sidebar() {
                 </h4>
                 <ul className="space-y-1 px-3">
                   {categoryLessons.map((lesson, index) => {
-                    const isActive = location === `/lesson/${lesson.slug}`;
+                    const isActive = location.pathname === `/egitim/${lesson.slug}`;
                     const isCompleted = completedLessons.includes(lesson.id);
 
                     return (
@@ -78,11 +78,11 @@ export function Sidebar() {
                         transition={{ delay: (catIndex * 0.1) + (index * 0.05) }}
                       >
                         <Link 
-                          href={`/lesson/${lesson.slug}`}
+                          to={`/egitim/${lesson.slug}`}
                           onClick={() => setSidebarOpen(false)}
                           className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-all ${
                             isActive 
-                              ? 'bg-sidebar-accent text-sidebar-accent-foreground border-l-2 border-primary shadow-[inset_4px_0_0_0_hsl(var(--primary))]' 
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground border-l-2 border-primary shadow-[inset_4px_0_0_0_hsl(var(--primary)),0_0_10px_rgba(34,197,94,0.1)]' 
                               : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
                           }`}
                           data-testid={`link-sidebar-lesson-${lesson.slug}`}
@@ -95,7 +95,7 @@ export function Sidebar() {
                                 <div className="w-1.5 h-1.5 rounded-full bg-sidebar-border"></div>
                               </div>
                             )}
-                            <span className="text-sm font-medium truncate">{lesson.title}</span>
+                            <span className="text-sm font-medium truncate">{lesson.baslik}</span>
                           </div>
                           {isActive && <ChevronRight className="w-4 h-4 text-primary shrink-0" />}
                         </Link>
@@ -107,13 +107,13 @@ export function Sidebar() {
             );
           })}
           {filteredLessons.length === 0 && (
-            <div className="px-6 text-sm text-muted-foreground">No lessons found.</div>
+            <div className="px-6 text-sm text-muted-foreground">Ders bulunamadı.</div>
           )}
         </div>
 
         <div className="p-4 border-t border-sidebar-border bg-sidebar/50">
           <div className="flex items-center justify-between text-xs mb-2">
-            <span className="text-sidebar-foreground/70 font-medium">Course Progress</span>
+            <span className="text-sidebar-foreground/70 font-medium">Kurs İlerlemesi</span>
             <span className="text-primary font-bold">{progressPercent}%</span>
           </div>
           <div className="h-2 w-full bg-sidebar-border rounded-full overflow-hidden">

@@ -1,0 +1,48 @@
+Anladım, şimdi durumu netleştirdik! Sen ilk aşamayı tamamladın, elinde bir temel var ve şimdi bu mevcut projeyi "bir üst seviyeye taşıyacak" spesifik bir geliştirme (refactoring/upgrade) promptu istiyorsun.
+
+Aşağıdaki metin, elindeki mevcut kodu analiz edip üzerine bu yeni özellikleri (Siyah-Yeşil tema, Auth sayfaları, Kod Playground ve Gelişmiş Quiz) eklemesi için Replit veya benzeri bir yapay zekaya verebileceğin "Geliştirme ve İyileştirme" promptudur:
+
+PROJE GELİŞTİRME TALİMATI: VERSION 2.0 (EVOLVE)
+BAĞLAM: Mevcut bir "React TSX Eğitim Platformu" projem var. Sen bu projeyi bir Senior Frontend Architect gözüyle inceleyip, aşağıdaki yeni gereksinimlere göre baştan sona modernize edecek ve yeni fonksiyonlar ekleyeceksin.
+
+1. TEMA VE TASARIM REVİZYONU (BLACK & GREEN VIBE)
+Yeni Renk Paleti (Karanlık): Mor tonlarını tamamen kaldır. Yerine Matrix/Terminal esintili; Arka plan #000000 (Saf Siyah), kartlar ve sidebar için #111111 (Koyu Gri) ve vurgu rengi olarak #22C55E (Canlı Yeşil) kullan.
+
+Aydınlık Tema: Ayarlar menüsüne bir "Tema Değiştirici" (Toggle) ekle. Aydınlık modda temiz beyaz arka plan, siyah metinler ve yeşil vurgular kullanılmalı.
+
+State Yönetimi: Tema durumunu (Dark/Light) yönetmek için bir ThemeContext oluştur.
+
+2. YENİ SAYFALAR VE YÖNLENDİRME (ROUTING)
+react-router-dom kütüphanesini projeye dahil et.
+
+Giriş (Login) & Kayıt (Register): Şık, modern ve sadece UI olarak çalışan (fonksiyonel simülasyon) iki ayrı sayfa ekle.
+
+Ana Sayfa (Landing): Kullanıcıyı karşılayan, platformun özelliklerini özetleyen bir giriş sayfası tasarla.
+
+Eğitim Paneli: Mevcut ders yapısını /egitim/:slug şeklinde dinamik bir rotaya taşı.
+
+3. ETKİLEŞİMLİ PLAYGROUND VE DERS TAMAMLAMA MANTIĞI
+Canlı Kod Editörü: Ders içeriğine kullanıcının kod yazabileceği bir textarea (veya basit bir editor bileşeni) ekle.
+
+Live Preview: Kullanıcının yazdığı kodun çıktısı yan taraftaki bir panelde anlık görünmeli.
+
+Başarı Kriteri: 1. Kullanıcının yazdığı kod, o ders için belirlenen expectedOutput (beklenen çıktı) ile eşleşmeli.
+2. Her dersin sonunda yer alan 3 adet çoktan seçmeli soruyu (Quiz) %100 başarıyla tamamlamalı.
+
+İlerleme Kaydı: Bu iki kriter sağlandığında ders "Tamamlandı" olarak işaretlenmeli, sidebar'da yanına yeşil bir tik gelmeli ve bu durum localStorage ile saklanmalı.
+
+4. İÇERİK GENİŞLETME VE TÜRKÇELEŞTİRME
+Tüm arayüzü ve ders içeriklerini %100 Türkçe yap.
+
+Ders sayısını artır: Props, Interface, State, useEffect, Context API, ve Form Yönetimi konularını detaylıca ekle.
+
+src/data/lessons.ts dosyasını; içinde quizQuestions (3 soru), taskCode ve expectedOutput olacak şekilde güncelle.
+
+5. TEKNİK STANDARTLAR
+Tüm yeni bileşenlerde TypeScript Interface tanımlarını eksiksiz yap.
+
+src/context/CourseContext.tsx oluşturarak derslerin tamamlanma durumunu global olarak yönet.
+
+Animasyonlar için framer-motion kullanarak sayfa geçişlerini ve modalları yumuşat.
+
+Senden Beklentim: Mevcut proje yapısını bozmadan, bu yeni özellikleri profesyonel bir klasör mimarisiyle (context, hooks, pages) entegre etmen ve "Clean Code" prensiplerinden ödün vermemendir.

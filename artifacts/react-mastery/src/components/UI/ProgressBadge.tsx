@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLessonContext } from '../../context/LessonContext';
+import { useCourseContext } from '../../context/CourseContext';
 
 export function ProgressBadge() {
-  const { completedLessons, lessons } = useLessonContext();
+  const { completedLessons, lessons } = useCourseContext();
   
   const total = lessons.length;
   const completed = completedLessons.length;
@@ -11,8 +11,8 @@ export function ProgressBadge() {
   return (
     <div className="flex items-center gap-3" data-testid="progress-badge">
       <div className="hidden sm:flex flex-col items-end">
-        <span className="text-xs font-medium text-foreground">{completed}/{total} Completed</span>
-        <span className="text-[10px] text-muted-foreground">Keep going!</span>
+        <span className="text-xs font-medium text-foreground">{completed}/{total} Tamamlandı</span>
+        <span className="text-[10px] text-muted-foreground">Harika gidiyorsun!</span>
       </div>
       <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center relative overflow-hidden group">
         <div 

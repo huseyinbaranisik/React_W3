@@ -1,28 +1,35 @@
 export interface QuizQuestion {
-  question: string;
-  options: string[];
-  correctAnswer: number; // index
+  soru: string;
+  secenekler: string[];
+  dogruCevap: number; // index
 }
 
 export interface Lesson {
   id: string;
-  category: 'Fundamentals' | 'Hooks' | 'Advanced';
-  title: string;
+  kategori: 'Temel Kavramlar' | 'Hook\'lar' | 'İleri Seviye';
+  baslik: string;
   slug: string;
-  description: string;
-  content: string[]; // array of paragraph strings
-  codeExample: string; // TSX code string
-  quiz: QuizQuestion;
+  aciklama: string;
+  icerik: string[]; // paragraph strings in Turkish
+  kodOrnegi: string; // TSX code string
+  beklenenCikti: string; // expected output string for playground validation
+  gorevKodu: string; // starter code for the playground task
+  quizSorulari: QuizQuestion[]; // exactly 3 questions
 }
 
-export interface LessonContextType {
+export interface CourseContextType {
   lessons: Lesson[];
   activeLesson: Lesson | null;
   setActiveLesson: (lesson: Lesson) => void;
   completedLessons: string[]; // lesson ids
-  toggleComplete: (id: string) => void;
+  markComplete: (id: string) => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+}
+
+export interface ThemeContextType {
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
 }
