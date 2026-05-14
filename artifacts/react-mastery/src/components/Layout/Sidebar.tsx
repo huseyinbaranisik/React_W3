@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, ChevronRight, X } from 'lucide-react';
+import { CheckCircle2, ChevronRight, X, User } from 'lucide-react';
 import { useCourseContext } from '../../context/CourseContext';
 
 export function Sidebar() {
@@ -111,6 +111,16 @@ export function Sidebar() {
           )}
         </div>
 
+        <Link 
+          to="/profil" 
+          onClick={() => setSidebarOpen(false)}
+          className="flex items-center gap-3 px-6 py-4 border-t border-sidebar-border text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-all"
+        >
+          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+            <User className="w-4 h-4" />
+          </div>
+          <span className="text-sm font-medium">Profil</span>
+        </Link>
         <div className="p-4 border-t border-sidebar-border bg-sidebar/50">
           <div className="flex items-center justify-between text-xs mb-2">
             <span className="text-sidebar-foreground/70 font-medium">Kurs İlerlemesi</span>

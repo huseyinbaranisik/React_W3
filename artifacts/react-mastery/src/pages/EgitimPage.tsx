@@ -14,7 +14,14 @@ export function EgitimPage() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-5xl mx-auto px-4 py-8 md:py-12 relative">
+      <div className="absolute top-4 right-4 md:top-8 md:right-8">
+        <Link to="/profil" className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary hover:text-primary-foreground transition-all shadow-sm">
+          <span className="font-semibold text-sm">Profilim</span>
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+      </div>
+
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,7 +52,7 @@ export function EgitimPage() {
           transition={{ delay: 0.2 }}
           className="bg-card border border-border p-6 rounded-2xl shadow-sm"
         >
-          <div className="text-3xl font-bold text-foreground mb-1">3</div>
+          <div className="text-3xl font-bold text-foreground mb-1">{Object.keys(lessons.reduce((acc, l) => ({...acc, [l.kategori]: true}), {})).length}</div>
           <div className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Kategori</div>
         </motion.div>
 

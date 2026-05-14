@@ -1,0 +1,57 @@
+Harika, bu projeyi tam teşekküllü bir LMS (Öğrenme Yönetim Sistemi) haline getiriyoruz. 20 derslik müfredat, oyunlaştırma ve sertifika sistemiyle bu proje bir "final ödevi"nin çok ötesine geçecek.
+
+İşte tüm bu isteklerini içeren, Replit veya benzeri bir AI modeline doğrudan kopyalayıp verebileceğin Genişletilmiş Master Prompt:
+
+MASTER PROMPT: REACT MASTER TR – GAMIFICATION & CERTIFICATION (V3)
+ROL: Sen, modern eğitim yazılımları geliştiren bir Senior Frontend Architect'sin. Mevcut "React Mastery" projesini aşağıdaki profesyonel özelliklerle, Siyah-Yeşil (Hacker/Terminal) temasında geliştireceksin.
+
+1. UI/UX VE NAVİGASYON (STICKY MANTIK)
+Sticky Sidebar: Sol menü (Ders Listesi) sticky top-0 h-screen yapısında olmalı. Kullanıcı ana içeriği aşağı kaydırdığında menü sabit kalmalı ve her zaman erişilebilir olmalı.
+
+Modern Kaydırma: İçerik alanı için Tailwind ile özelleştirilmiş ince, yeşil bir scrollbar tasarımı ekle.
+
+Tema: Karanlık modda Saf Siyah (#000000) arka plan, Koyu Gri (#111111) kartlar ve Neon Yeşil (#22C55E) vurgular kullanılmalı.
+
+2. KAPSAMLI MÜFREDAT (20 DETAYLI DERS)
+src/data/lessons.ts dosyasını tam 20 farklı konuyu içerecek şekilde genişlet. Her ders; detaylı açıklama, başlangıç kodu (taskCode), beklenen çıktı (expectedOutput) ve 3 adet teknik soru içermelidir.
+Ders Başlıkları:
+
+React Giriş, 2. JSX Mantığı, 3. Component Yapısı, 4. Props & Interface, 5. useState Hook, 6. Event Handling, 7. Conditional Rendering, 8. Lists & Keys, 9. useEffect (Temel), 10. useEffect (Advanced), 11. Form Yönetimi, 12. useRef Hook, 13. useMemo & useCallback, 14. Custom Hooks, 15. Context API Giriş, 16. Context API Advanced, 17. React Router Temelleri, 18. API Fetching (Axios/Fetch), 19. Error Boundaries, 20. React Performans Optimizasyonu.
+
+3. KOD EDİTÖRÜ VE DOĞRULAMA SİSTEMİ
+Kontrol Paneli: Kod editörünün altına "Çalıştır", "Temizle" ve "Kodu Kopyala" butonları ekle.
+
+Mantıksal Kontrol: Kullanıcının yazdığı kod ile expectedOutput verisini karşılaştıran ve boşlukları (whitespace) temizleyerek kontrol eden hassas bir doğrulama algoritması kur.
+
+İlerleme: Kod doğruysa ve 3 soruluk quiz geçildiyse dersi "Tamamlandı" olarak işaretle (LocalStorage'a kaydet).
+
+4. PROFİL, OYUNLAŞTIRMA VE ROZETLER
+Profil Sayfası/Bölümü: Kullanıcının adı, profil fotoğrafı (avatar) ve toplam ilerleme yüzdesini gösteren şık bir dashboard oluştur.
+
+Başarım Rozetleri (Badge System): Aşağıdaki 4 rozeti içeren bir panel tasarla:
+
+İlk Adım: 1 ders bitince açılır.
+
+İstikrar: 5 ders bitince açılır.
+
+Yolun Yarısı: 10 ders (%50) bitince açılır.
+
+React Master: 20 dersin tamamı bitince açılır.
+
+Rozet Görseli: Rozetler kazanılmadan önce %30 opacity (şeffaf) ve tam ortalarında bir Kilit (Lock) simgesi ile görünmeli. Kazanıldığında renklenmeli ve kilit kalkmalı.
+
+Hover Pop-up (Tooltip): Fare rozetin üzerine geldiğinde, başarımın nasıl kazanılacağını anlatan küçük bir kutucuk (Tooltip) çıkmalı.
+
+5. SERTİFİKA SİSTEMİ
+Kilitli Buton: "Sertifikayı Görüntüle" butonu, ilerleme %100 olmadan aktifleşmemeli (disabled ve gri olmalı).
+
+Sertifika Çıktısı: 20 ders bittiğinde buton açılır. Tıklandığında yeni bir sekmede; kullanıcının adı, bitirme tarihi, platform logosu ve "React TSX Uzmanlık Sertifikası" ibaresini içeren, profesyonel, imzalı bir tasarım (PDF benzeri layout) gösterilmelidir.
+
+6. TEKNİK ALTYAPI
+State: Tüm ilerlemeyi, temayı ve başarımları Context API ile yönet.
+
+Animasyon: Rozetlerin açılışı ve sayfa geçişleri için framer-motion kullan.
+
+Dil: Tüm platform %100 Türkçe olmalıdır.
+
+Beklenti: Bu yapıyı tek bir bütün halinde, modüler ve temiz bir TypeScript koduyla oluştur. "npm run dev" komutuyla tüm bu özellikler aktif olmalı.

@@ -6,7 +6,7 @@ export interface QuizQuestion {
 
 export interface Lesson {
   id: string;
-  kategori: 'Temel Kavramlar' | 'Hook\'lar' | 'İleri Seviye';
+  kategori: 'Temel Kavramlar' | "Hook'lar" | 'İleri Seviye';
   baslik: string;
   slug: string;
   aciklama: string;
@@ -27,6 +27,8 @@ export interface CourseContextType {
   setSearchQuery: (q: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+  userName: string;
+  setUserName: (name: string) => void;
 }
 
 export interface ThemeContextType {

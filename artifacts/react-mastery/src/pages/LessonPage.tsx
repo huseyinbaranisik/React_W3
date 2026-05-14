@@ -51,17 +51,23 @@ export function LessonPage() {
   const nextLesson = currentLessonIndex < lessons.length - 1 ? lessons[currentLessonIndex + 1] : null;
 
   const runCode = () => {
-    // Simple mock runner that checks if user code contains parts of the expected output
-    // or just generally passes validation for demonstration.
-    const isPassing = lesson.beklenenCikti.toLowerCase().split(' ').some(word => 
-      userCode.toLowerCase().includes(word.replace(/[^a-z0-9]/g, ''))
-    ) || userCode.includes('setState') || userCode.includes('console.log');
-
-    if (isPassing || userCode.length > lesson.gorevKodu.length + 5) {
+    const trimmedUser = userCode.replace(/\s+/g, '').toLowerCase();
+    const trimmedExpected = lesson.beklenenCikti.replace(/\s+/g, '').toLowerCase();
+    
+    // Check 1: direct match after whitespace removal
+    const directMatch = trimmedUser.includes(trimmedExpected);
+    
+    // Check 2: user added more than 10 chars to starter code and code is non-trivial
+    const hasAddedCode = userCode.trim().length > lesson.gorevKodu.trim().length + 10;
+    
+    // Check 3: code contains key React patterns
+    const hasReactPattern = /return|useState|useEffect|jsx|tsx|<[A-Z]/.test(userCode);
+    
+    if (directMatch || (hasAddedCode && hasReactPattern)) {
       setOutput(lesson.beklenenCikti);
       setPlaygroundPassed(true);
     } else {
-      setOutput("Hata: Çıktı beklenenle eşleşmiyor veya kod eksik.");
+      setOutput("Çıktı beklenenle eşleşmiyor. Kodu kontrol edin.");
       setPlaygroundPassed(false);
     }
   };
@@ -112,12 +118,33 @@ export function LessonPage() {
           <h3 className="font-semibold text-foreground flex items-center gap-2">
             <Code2 className="w-5 h-5 text-primary" /> Canlı Playground
           </h3>
-          <button 
-            onClick={runCode}
-            className="flex items-center gap-2 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
-          >
-            <Play className="w-4 h-4" /> Kodu Çalıştır
-          </button>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => navigator.clipboard.writeText(userCode)} 
+              data-testid="button-copy-code"
+              className="px-3 py-1.5 border border-input bg-background hover:bg-accent text-accent-foreground text-sm font-medium rounded-md transition-colors"
+            >
+              Kopyala
+            </button>
+            <button 
+              onClick={() => {
+                setUserCode(lesson.gorevKodu);
+                setOutput("Kod henüz çalıştırılmadı");
+                setPlaygroundPassed(false);
+              }} 
+              data-testid="button-clear-code"
+              className="px-3 py-1.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground text-sm font-medium rounded-md transition-colors"
+            >
+              Temizle
+            </button>
+            <button 
+              onClick={runCode}
+              data-testid="button-run-code"
+              className="flex items-center gap-2 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
+            >
+              <Play className="w-4 h-4" /> Çalıştır
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 h-64 md:h-80 divide-y md:divide-y-0 md:divide-x divide-border">
           <textarea 

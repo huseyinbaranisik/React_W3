@@ -11,6 +11,8 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { EgitimPage } from "./pages/EgitimPage";
 import { LessonPage } from "./pages/LessonPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { CertificatePage } from "./pages/CertificatePage";
 import NotFound from "./pages/not-found";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -40,6 +42,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/giris" element={<LoginPage />} />
               <Route path="/kayit" element={<RegisterPage />} />
+              <Route path="/sertifika" element={<CertificatePage />} />
               
               {/* Dashboard pages */}
               <Route path="/egitim" element={
@@ -50,6 +53,11 @@ function App() {
               <Route path="/egitim/:slug" element={
                 <DashboardLayout>
                   <LessonPage />
+                </DashboardLayout>
+              } />
+              <Route path="/profil" element={
+                <DashboardLayout>
+                  <ProfilePage />
                 </DashboardLayout>
               } />
               

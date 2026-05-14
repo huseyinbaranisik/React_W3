@@ -68,6 +68,10 @@ export function Navbar() {
           </a>
           <div className="w-px h-6 bg-border mx-1"></div>
           <ProgressBadge />
+          
+          <Link to="/profil" className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background transition-all">
+            {useCourseContext().userName?.charAt(0).toUpperCase() || 'G'}
+          </Link>
         </div>
       </div>
     </nav>

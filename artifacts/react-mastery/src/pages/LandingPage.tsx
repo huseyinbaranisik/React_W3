@@ -46,7 +46,7 @@ export function LandingPage() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-8">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            v2.0 Yayında
+            v3.0 Yayında
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
             React'ı Ustaca Öğren <br/>

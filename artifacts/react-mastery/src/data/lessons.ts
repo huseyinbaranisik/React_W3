@@ -4,47 +4,31 @@ export const lessons: Lesson[] = [
   {
     id: "l1",
     kategori: "Temel Kavramlar",
-    baslik: "React'a Giriş",
+    baslik: "React Giriş",
     slug: "react-giris",
-    aciklama: "React nedir, Virtual DOM nasıl çalışır ve bileşen yapısı.",
+    aciklama: "React'ın temel yapısı ve nasıl çalıştığı hakkında ilk adım.",
     icerik: [
-      "React, kullanıcı arayüzleri oluşturmak için kullanılan bildirimsel ve esnek bir JavaScript kütüphanesidir. Karmaşık arayüzleri küçük ve bağımsız kod parçalarından, yani bileşenlerden oluşturmanızı sağlar.",
-      "React'in en önemli kavramlarından biri Virtual DOM'dur. React, yavaş olabilen gerçek DOM'u doğrudan değiştirmek yerine, bellekte hafif bir kopya oluşturur.",
-      "Bir nesnenin durumu değiştiğinde, React Virtual DOM'u günceller, önceki sürümle karşılaştırır ve gerçek DOM'a uygulanacak en verimli yolu hesaplar."
+      "React, kullanıcı arayüzleri oluşturmak için kullanılan açık kaynaklı bir JavaScript kütüphanesidir. Bileşen tabanlı yapısı sayesinde karmaşık UI'ları daha küçük, yönetilebilir parçalara bölebilirsiniz.",
+      "Sanal DOM (Virtual DOM) kullanarak performansı artırır. Geleneksel web uygulamalarının aksine, sadece değişen kısımları günceller.",
+      "Bu ilk dersimizde React'ın en temel yapısı olan bileşen oluşturmayı ve ekrana basit bir çıktı yazdırmayı öğreneceksiniz."
     ],
-    kodOrnegi: `import React from 'react';
-
-export default function MerhabaDunya() {
-  return (
-    <div>
-      <h1>Merhaba Dünya!</h1>
-      <p>React Mastery'ye hoş geldiniz.</p>
-    </div>
-  );
-}`,
+    kodOrnegi: `import React from 'react';\n\nfunction MerhabaDunya() {\n  return <h1>Merhaba Dünya!</h1>;\n}\n\nexport default MerhabaDunya;`,
     beklenenCikti: "Merhaba Dünya!",
-    gorevKodu: `export default function Uygulama() {
-  return (
-    <div>
-      {/* TODO: İçine 'Merhaba Dünya!' yazan bir h1 elementi ekleyin */}
-      
-    </div>
-  );
-}`,
+    gorevKodu: `// "Merhaba Dünya!" yazdıran bir bileşen oluşturun\nexport default function App() {\n  return (\n    // TODO: Burayı düzenleyin\n    <div></div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "React arayüzü verimli bir şekilde güncellemek için ne kullanır?",
-        secenekler: ["Gerçek DOM", "Virtual DOM", "Shadow DOM", "String DOM"],
+        soru: "React nedir?",
+        secenekler: ["Bir veritabanı", "Kullanıcı arayüzü kütüphanesi", "Bir işletim sistemi", "Bir backend framework'ü"],
         dogruCevap: 1
       },
       {
-        soru: "React'in temel yapı taşı nedir?",
-        secenekler: ["Modüller", "Sınıflar", "Bileşenler", "Şablonlar"],
-        dogruCevap: 2
+        soru: "React performansı artırmak için hangi teknolojiyi kullanır?",
+        secenekler: ["Real DOM", "Sanal DOM (Virtual DOM)", "Shadow DOM", "Direct DOM"],
+        dogruCevap: 1
       },
       {
-        soru: "React ne tür bir kütüphanedir?",
-        secenekler: ["Veritabanı", "Sunucu", "Kullanıcı Arayüzü (UI)", "Stil"],
+        soru: "React uygulamaları hangi dille yazılır?",
+        secenekler: ["Python", "Java", "JavaScript / TypeScript", "C++"],
         dogruCevap: 2
       }
     ]
@@ -52,105 +36,63 @@ export default function MerhabaDunya() {
   {
     id: "l2",
     kategori: "Temel Kavramlar",
-    baslik: "JSX ve TSX",
-    slug: "jsx-ve-tsx",
-    aciklama: "JSX sözdizimi, süslü parantez kullanımı, className ve ifadeler.",
+    baslik: "JSX Mantığı",
+    slug: "jsx-mantigi",
+    aciklama: "JavaScript içinde HTML yazmanızı sağlayan JSX sözdizimini keşfedin.",
     icerik: [
-      "JSX, JavaScript için XML veya HTML'ye benzeyen bir sözdizimi uzantısıdır. TSX ise JSX'in TypeScript dosyalarında kullanılmasıdır.",
-      "JSX, HTML elementlerini JavaScript içinde yazmanıza ve createElement() kullanmadan DOM'a yerleştirmenize olanak tanır.",
-      "Süslü parantez {} kullanarak herhangi bir JavaScript ifadesini JSX içine gömebilirsiniz. CSS sınıfları için 'class' yerine 'className' kullanmalısınız."
+      "JSX (JavaScript XML), React'ta arayüzleri tanımlamak için kullanılan, HTML'e benzeyen bir sözdizimidir. JavaScript'in tüm gücünü HTML benzeri bir yapıyla birleştirir.",
+      "JSX, tarayıcıda doğrudan çalışmaz. Babel gibi araçlar tarafından normal JavaScript fonksiyon çağrılarına (React.createElement) dönüştürülür.",
+      "JSX içinde JavaScript ifadelerini süslü parantezler {} arasında kullanabilirsiniz. Ayrıca class yerine className, for yerine htmlFor gibi özel nitelik isimleri kullanılır."
     ],
-    kodOrnegi: `interface KullaniciProps {
-  isim: string;
-  yas: number;
-}
-
-export default function KullaniciProfili({ isim, yas }: KullaniciProps) {
-  return (
-    <div className="kullanici-profili">
-      <h2>{isim}</h2>
-      <p>Yaş: {yas}</p>
-    </div>
-  );
-}`,
-    beklenenCikti: "Bileşen çalışıyor.",
-    gorevKodu: `export default function Goster() {
-  const mesaj = "Bileşen çalışıyor.";
-  return (
-    <div>
-      {/* TODO: mesaj değişkenini JSX içinde süslü parantezlerle gösterin */}
-      
-    </div>
-  );
-}`,
+    kodOrnegi: `const isim = "Ali";\nconst element = <h1>Merhaba, {isim}! JSX çalışıyor.</h1>;`,
+    beklenenCikti: "JSX çalışıyor.",
+    gorevKodu: `export default function App() {\n  // "JSX çalışıyor." metnini ekranda gösterin\n  return (\n    <div>\n      {/* TODO */}\n    </div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "JSX içinde JavaScript ifadelerini nasıl kullanırız?",
-        secenekler: ["Kare parantez []", "Süslü parantez {}", "Normal parantez ()", "Tırnak işareti ''"],
-        dogruCevap: 1
-      },
-      {
-        soru: "JSX'te CSS sınıfı eklemek için hangi özellik kullanılır?",
-        secenekler: ["class", "className", "styleClass", "cssClass"],
-        dogruCevap: 1
-      },
-      {
-        soru: "JSX dosyaları TypeScript ile kullanıldığında hangi uzantıyı alır?",
-        secenekler: [".ts", ".jsx", ".tsx", ".jts"],
+        soru: "JSX içinde JavaScript değişkenleri hangi semboller arasında yazılır?",
+        secenekler: ["( )", "[ ]", "{ }", "< >"],
         dogruCevap: 2
+      },
+      {
+        soru: "HTML'deki 'class' niteliği JSX'te nasıl yazılır?",
+        secenekler: ["class", "className", "classList", "cssClass"],
+        dogruCevap: 1
+      },
+      {
+        soru: "JSX doğrudan tarayıcıda çalışır mı?",
+        secenekler: ["Evet, tarayıcılar JSX'i destekler", "Hayır, dönüştürülmesi gerekir"],
+        dogruCevap: 1
       }
     ]
   },
   {
     id: "l3",
     kategori: "Temel Kavramlar",
-    baslik: "Bileşenler",
-    slug: "bilesenler",
-    aciklama: "Fonksiyonel bileşenler ve bileşenleri birleştirme.",
+    baslik: "Component Yapısı",
+    slug: "component-yapisi",
+    aciklama: "Fonksiyonel bileşenler oluşturmayı ve kullanmayı öğrenin.",
     icerik: [
-      "Bileşenler herhangi bir React uygulamasının yapı taşlarıdır. Bir bileşen temel olarak JSX döndüren bir JavaScript fonksiyonudur.",
-      "Karmaşık arayüzler oluşturmak için bileşenleri birleştirebilirsiniz. Örneğin bir Ana bileşen; Navbar, Sidebar ve Icerik bileşenlerini içerebilir.",
-      "Her React bileşeni en üst seviyede tek bir element, bir dizi, bir fragment (<></>) veya null döndürmelidir."
+      "Bileşenler (Components), React uygulamanızın yapı taşlarıdır. Uygulamanın farklı bölümlerini bağımsız, yeniden kullanılabilir parçalara ayırmanızı sağlarlar.",
+      "Günümüzde React'ta en yaygın bileşen türü Fonksiyonel Bileşenlerdir. Basitçe, geriye JSX döndüren bir JavaScript fonksiyonudur.",
+      "Bir bileşen her zaman büyük harfle başlamalıdır. Aksi takdirde React onu standart bir HTML etiketi olarak algılar."
     ],
-    kodOrnegi: `function Baslik() {
-  return <h2>Bileşen Başlığı</h2>;
-}
-
-export default function Kart() {
-  return (
-    <div className="kart">
-      <Baslik />
-      <p>Bu bir kart bileşenidir.</p>
-    </div>
-  );
-}`,
-    beklenenCikti: "Bileşen çalışıyor.",
-    gorevKodu: `function Icerik() {
-  return <p>Bileşen çalışıyor.</p>;
-}
-
-export default function Uygulama() {
-  return (
-    <div>
-      {/* TODO: Icerik bileşenini burada render edin */}
-      
-    </div>
-  );
-}`,
+    kodOrnegi: `function Baslik() {\n  return <h2>Bileşen render edildi.</h2>;\n}\n\nfunction App() {\n  return (\n    <div>\n      <Baslik />\n    </div>\n  );\n}`,
+    beklenenCikti: "Bileşen render edildi.",
+    gorevKodu: `// "Bileşen render edildi." yazdıran bir Header bileşeni oluşturun\nfunction Header() {\n  return null;\n}\n\nexport default function App() {\n  return (\n    <div>\n      {/* Header bileşenini burada kullanın */}\n    </div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "Her React bileşeni ne döndürmek zorundadır?",
-        secenekler: ["Bir string", "JSX veya null", "Bir nesne", "Bir sayı"],
+        soru: "React bileşenleri hangi harfle başlamalıdır?",
+        secenekler: ["Küçük harf", "Büyük harf", "Farketmez", "Sayı ile"],
         dogruCevap: 1
       },
       {
-        soru: "Bileşen isimleri nasıl başlamalıdır?",
-        secenekler: ["Küçük harfle", "Büyük harfle", "Sayıyla", "Alt çizgiyle"],
-        dogruCevap: 1
+        soru: "Bileşenler neden kullanışlıdır?",
+        secenekler: ["Kod tekrarını önler", "Veritabanına bağlanır", "Sunucuyu hızlandırır", "Sadece HTML yazmayı sağlar"],
+        dogruCevap: 0
       },
       {
-        soru: "Birden fazla elementi saran görünmez kapsayıcıya ne ad verilir?",
-        secenekler: ["Div", "Wrapper", "Fragment", "Container"],
+        soru: "Bir fonksiyonel bileşen geriye ne döndürmelidir?",
+        secenekler: ["String", "Object", "JSX (React Elementi)", "Array"],
         dogruCevap: 2
       }
     ]
@@ -160,55 +102,29 @@ export default function Uygulama() {
     kategori: "Temel Kavramlar",
     baslik: "Props ve Interface",
     slug: "props-ve-interface",
-    aciklama: "Prop tanımlama, aktarma ve TypeScript interface kullanımı.",
+    aciklama: "Bileşenlere veri aktarmayı (props) ve TypeScript ile bu verileri tiplemeyi kavrayın.",
     icerik: [
-      "Props (özellikler), React bileşenlerinin birbirleriyle iletişim kurma yoludur. Veriler her zaman üst bileşenden alt bileşene doğru akar.",
-      "Props'lar salt okunurdur. Bir bileşen kendisine gelen props'ları asla değiştirmemelidir.",
-      "TypeScript'te props'ların yapısını tanımlamak için interface veya type kullanırız. Bu bize otomatik tamamlama ve tip güvenliği sağlar."
+      "Props (Özellikler), React bileşenleri arasında veri taşımak için kullanılır. Veri akışı her zaman yukarıdan aşağıya (ebeveynden çocuğa) doğrudur.",
+      "Props'lar salt okunurdur (read-only), yani bir bileşen kendisine gelen props değerini doğrudan değiştiremez.",
+      "TypeScript kullanırken props'ların beklediği veri tiplerini Interface veya Type kullanarak tanımlamak kodun daha güvenli olmasını sağlar."
     ],
-    kodOrnegi: `interface ButonProps {
-  etiket: string;
-  renk?: string; // İsteğe bağlı
-}
-
-export default function Buton({ etiket, renk = "mavi" }: ButonProps) {
-  return (
-    <button style={{ backgroundColor: renk }}>
-      {etiket}
-    </button>
-  );
-}`,
-    beklenenCikti: "Kullanıcı: Ahmet",
-    gorevKodu: `interface KullaniciProps {
-  isim: string;
-}
-
-function Profil({ isim }: KullaniciProps) {
-  return <span>Kullanıcı: {isim}</span>;
-}
-
-export default function Uygulama() {
-  return (
-    <div>
-      {/* TODO: Profil bileşenine isim="Ahmet" prop'unu geçin */}
-      
-    </div>
-  );
-}`,
+    kodOrnegi: `interface Props {\n  isim: string;\n}\n\nfunction Karsilama({ isim }: Props) {\n  return <h1>Merhaba, {isim}!</h1>;\n}\n\n// Kullanımı: <Karsilama isim="Ayşe" />`,
+    beklenenCikti: "Merhaba, Ayşe!",
+    gorevKodu: `interface UserProps {\n  // TODO: isim (string) özelliği tanımlayın\n}\n\nfunction UserProfile(props: any) {\n  // TODO: Ekrana "Merhaba, [isim]!" yazdırın\n  return null;\n}\n\nexport default function App() {\n  return <UserProfile isim="Ayşe" />;\n}`,
     quizSorulari: [
       {
-        soru: "Props'lar hangi yönde akar?",
-        secenekler: ["Alttan üste", "Üstten alta", "İki yönde", "Rastgele"],
+        soru: "Props'lar hangi yönde aktarılır?",
+        secenekler: ["Çocuktan ebeveyne", "Ebeveynden çocuğa", "Kardeş bileşenler arasında", "Çift yönlü"],
         dogruCevap: 1
       },
       {
-        soru: "Bir bileşen kendi props'larını değiştirebilir mi?",
-        secenekler: ["Evet, her zaman", "Hayır, props'lar salt okunurdur", "Sadece state yoksa", "Evet, setState ile"],
+        soru: "Props değerleri bileşen içinde değiştirilebilir mi?",
+        secenekler: ["Evet", "Hayır, props'lar salt okunurdur"],
         dogruCevap: 1
       },
       {
-        soru: "TypeScript'te isteğe bağlı bir prop nasıl belirtilir?",
-        secenekler: ["isim: string | null", "isim?: string", "isim*: string", "isim!: string"],
+        soru: "TypeScript'te props'ları tiplemek için ne kullanılır?",
+        secenekler: ["enum", "interface / type", "class", "function"],
         dogruCevap: 1
       }
     ]
@@ -216,461 +132,511 @@ export default function Uygulama() {
   {
     id: "l5",
     kategori: "Temel Kavramlar",
-    baslik: "State Yönetimi",
-    slug: "state-yonetimi",
-    aciklama: "State kavramı, verinin değişimi ve bileşenlerin yeniden çizilmesi (re-render).",
+    baslik: "useState Hook",
+    slug: "usestate-hook",
+    aciklama: "Bileşenlerde durum (state) yönetimini sağlayan useState hook'unu kullanın.",
     icerik: [
-      "State (durum), bir bileşenin zaman içinde değişebilen ve kullanıcının gördüğü arayüzü etkileyen özel verisidir.",
-      "Props'ların aksine state, bileşenin kendi içinde yönetilir ve güncellenebilir.",
-      "Bir bileşenin state'i her değiştiğinde, React o bileşeni ve onun alt bileşenlerini güncel state değerleriyle yeniden çizer (re-render)."
+      "State, bir bileşenin zaman içinde değişebilecek verilerini tuttuğu yerdir. State değiştiğinde, React bileşeni otomatik olarak yeniden render eder.",
+      "Fonksiyonel bileşenlerde state yönetimi için useState hook'u kullanılır. Bu hook bize mevcut state değerini ve onu güncellemek için bir fonksiyon döner.",
+      "State güncellemeleri asenkrondur. Yeni state değerinin mevcut state'e bağlı olduğu durumlarda güncelleme fonksiyonuna bir callback geçilmesi önerilir."
     ],
-    kodOrnegi: `import { useState } from 'react';
-
-export default function Sayac() {
-  const [deger, degerAyarla] = useState(0);
-
-  return (
-    <button onClick={() => degerAyarla(deger + 1)}>
-      Tıklanma: {deger}
-    </button>
-  );
-}`,
+    kodOrnegi: `import { useState } from 'react';\n\nfunction Sayac() {\n  const [sayac, setSayac] = useState(0);\n  return <p>Sayaç: {sayac}</p>;\n}`,
     beklenenCikti: "Sayaç: 0",
-    gorevKodu: `export default function Uygulama() {
-  // TODO: useState kullanarak baslangic degeri 0 olan bir 'sayac' state'i oluşturun ve ekrana 'Sayaç: 0' yazdırın
-  
-  return (
-    <div>
-      
-    </div>
-  );
-}`,
+    gorevKodu: `import { useState } from 'react';\n\nexport default function App() {\n  // TODO: Başlangıç değeri 0 olan bir 'count' state'i oluşturun\n  \n  return (\n    <div>Sayaç: {/* count değerini yazdırın */}</div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "State güncellendiğinde ne olur?",
-        secenekler: ["Sayfa yenilenir", "Bileşen yeniden çizilir (re-render)", "Uygulama çöker", "Hiçbir şey olmaz"],
+        soru: "useState hook'u ne işe yarar?",
+        secenekler: ["API isteği yapar", "DOM elementine referans alır", "Bileşenin durumunu (state) yönetir", "Sayfayı yönlendirir"],
+        dogruCevap: 2
+      },
+      {
+        soru: "useState fonksiyonu ne döndürür?",
+        secenekler: ["Bir string", "[mevcutDeger, guncellemeFonksiyonu] şeklinde bir dizi", "Bir obje", "Bir boolean"],
         dogruCevap: 1
       },
       {
-        soru: "State ile Props arasındaki temel fark nedir?",
-        secenekler: ["Fark yoktur", "Props değişebilir, State sabittir", "State değişebilir, Props salt okunurdur", "State sadece class bileşenlerinde olur"],
-        dogruCevap: 2
-      },
-      {
-        soru: "State'i doğrudan değiştirmek (örn: state = yeniDeger) doğru mudur?",
-        secenekler: ["Evet, en hızlı yoldur", "Sadece string ise evet", "Hayır, state güncelleme fonksiyonu kullanılmalıdır", "Bazen"],
-        dogruCevap: 2
+        soru: "State güncellendiğinde ne olur?",
+        secenekler: ["Sayfa yenilenir", "Sadece state'in kullanıldığı bileşen yeniden render edilir", "Tüm uygulama baştan başlar", "Hiçbir şey olmaz"],
+        dogruCevap: 1
       }
     ]
   },
   {
     id: "l6",
-    kategori: "Hook'lar",
-    baslik: "useState Hook",
-    slug: "usestate-hook",
-    aciklama: "useState fonksiyonu, değer atama ve tip belirleme.",
+    kategori: "Temel Kavramlar",
+    baslik: "Event Handling",
+    slug: "event-handling",
+    aciklama: "Kullanıcı etkileşimlerini (tıklama, form girişi) nasıl yöneteceğinizi öğrenin.",
     icerik: [
-      "useState hook'u, fonksiyonel bileşenlerde yerel state (durum) yönetmemizi sağlar. Parametre olarak state'in başlangıç değerini alır.",
-      "useState bize iki elemanlı bir dizi döndürür: mevcut state değeri ve bu değeri güncelleyecek bir fonksiyon.",
-      "TypeScript ile kullanırken state'in tipini belirtebiliriz (örn: useState<number>(0)), böylece tip güvenliği sağlamış oluruz."
+      "React'ta olay yönetimi (event handling), normal DOM elementlerindeki gibidir, ancak bazı sözdizimi farkları vardır.",
+      "Olay isimleri camelCase formatında yazılır (örneğin onclick yerine onClick).",
+      "Olaylara string yerine doğrudan bir fonksiyon referansı (örneğin onClick={handleClick}) atanmalıdır."
     ],
-    kodOrnegi: `import { useState } from 'react';
-
-export default function MetinKutusu() {
-  const [metin, setMetin] = useState<string>("");
-
-  return (
-    <div>
-      <input 
-        value={metin} 
-        onChange={(e) => setMetin(e.target.value)} 
-      />
-      <p>Yazdığınız: {metin}</p>
-    </div>
-  );
-}`,
-    beklenenCikti: "Sayaç: 0",
-    gorevKodu: `import { useState } from 'react';
-
-export default function Sayac() {
-  // TODO: count adında ve başlangıç değeri 0 olan bir state oluşturun
-  
-  return (
-    <div>
-      <p>Sayaç: 0</p>
-    </div>
-  );
-}`,
+    kodOrnegi: `function Buton() {\n  const handleClick = () => alert("Butona tıklandı!");\n  return <button onClick={handleClick}>Tıkla</button>;\n}`,
+    beklenenCikti: "Butona tıklandı!",
+    gorevKodu: `import { useState } from 'react';\n\nexport default function App() {\n  const [metin, setMetin] = useState("Bekleniyor");\n\n  // TODO: Tıklanınca metni "Butona tıklandı!" yapacak fonksiyonu yazın\n  \n  return (\n    <button>{metin}</button>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "useState fonksiyonu ne döndürür?",
-        secenekler: ["Sadece bir değer", "İki fonksiyon", "Değer ve güncelleme fonksiyonu içeren bir dizi", "Bir nesne"],
-        dogruCevap: 2
-      },
-      {
-        soru: "TypeScript'te boolean bir state nasıl tanımlanır?",
-        secenekler: ["useState(boolean)", "useState<boolean>(false)", "useState: boolean", "useState[boolean]"],
+        soru: "React'ta bir tıklama olayı nasıl yazılır?",
+        secenekler: ["onclick", "onClick", "on-click", "click"],
         dogruCevap: 1
       },
       {
-        soru: "Başlangıç değeri nerede verilir?",
-        secenekler: ["useState'in parametresi olarak", "Bileşen props'u olarak", "Dönüş değerinde", "Global olarak"],
+        soru: "Olaylara (event) değer olarak ne atanmalıdır?",
+        secenekler: ["Fonksiyon referansı", "String", "Obje", "Sayı"],
         dogruCevap: 0
+      },
+      {
+        soru: "Form gönderiminde sayfanın yenilenmesini engellemek için ne kullanılır?",
+        secenekler: ["e.stop()", "e.preventDefault()", "e.halt()", "e.pause()"],
+        dogruCevap: 1
       }
     ]
   },
   {
     id: "l7",
-    kategori: "Hook'lar",
-    baslik: "useEffect Hook",
-    slug: "useeffect-hook",
-    aciklama: "Yan etkiler (side effects), bağımlılık dizisi ve temizleme (cleanup).",
+    kategori: "Temel Kavramlar",
+    baslik: "Conditional Rendering",
+    slug: "conditional-rendering",
+    aciklama: "Duruma göre farklı bileşenleri ekranda göstermeyi (koşullu render) inceleyin.",
     icerik: [
-      "useEffect hook'u, fonksiyonel bileşenlerde yan etkiler (veri çekme, DOM manipülasyonu, abonelikler vb.) gerçekleştirmenizi sağlar.",
-      "useEffect iki parametre alır: çalıştırılacak fonksiyon ve isteğe bağlı bir bağımlılık dizisi.",
-      "Bağımlılık dizisi boş ise [] sadece bileşen ilk yüklendiğinde çalışır. Diziye değişkenler eklerseniz, bu değişkenler değiştiğinde tekrar çalışır."
+      "Koşullu render (Conditional Rendering), React'ta belirli bir duruma göre farklı arayüzlerin (JSX) gösterilmesidir.",
+      "Bunun için genellikle JavaScript'in mantıksal operatörleri (&&, ||) veya ternary (? :) operatörü kullanılır.",
+      "Örneğin, bir kullanıcı giriş yaptıysa profilini, yapmadıysa giriş formunu göstermek bu şekilde yönetilir."
     ],
-    kodOrnegi: `import { useState, useEffect } from 'react';
-
-export default function Zamanlayici() {
-  const [saniye, setSaniye] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSaniye(s => s + 1);
-    }, 1000);
-
-    // Temizleme (cleanup) fonksiyonu
-    return () => clearInterval(interval);
-  }, []); // Sadece ilk yüklemede çalışır
-
-  return <p>Geçen süre: {saniye} saniye</p>;
-}`,
-    beklenenCikti: "Bileşen yüklendi.",
-    gorevKodu: `import { useState, useEffect } from 'react';
-
-export default function BilgiGoster() {
-  const [mesaj, setMesaj] = useState("Bekleniyor...");
-
-  useEffect(() => {
-    // TODO: Burada setMesaj ile mesajı 'Bileşen yüklendi.' olarak değiştirin
-    
-  }, []);
-
-  return <p>{mesaj}</p>;
-}`,
+    kodOrnegi: `function DurumGoster({ girisYapildi }) {\n  return <p>{girisYapildi ? "Kullanıcı giriş yaptı." : "Lütfen giriş yapın."}</p>;\n}`,
+    beklenenCikti: "Kullanıcı giriş yaptı.",
+    gorevKodu: `export default function App() {\n  const isLogged = true;\n  \n  // TODO: isLogged true ise "Kullanıcı giriş yaptı." döndürün\n  return (\n    <div></div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "Boş bir bağımlılık dizisi [] useEffect'in ne zaman çalışmasını sağlar?",
-        secenekler: ["Her render işleminde", "Sadece bileşen ekrana ilk çizildiğinde", "Hiçbir zaman", "Sadece bileşen ekrandan kalkarken"],
+        soru: "JSX içinde IF/ELSE blokları doğrudan kullanılabilir mi?",
+        secenekler: ["Evet, her yerde kullanılabilir", "Hayır, genellikle ternary veya mantıksal operatörler tercih edilir"],
         dogruCevap: 1
       },
       {
-        soru: "useEffect içinden dönen (return) fonksiyon ne işe yarar?",
-        secenekler: ["Yeni bir state döndürür", "Hata ayıklama sağlar", "Temizleme (cleanup) işlemi yapar", "Bileşeni re-render eder"],
-        dogruCevap: 2
+        soru: "Sadece tek bir koşul doğruysa bir şey göstermek için en kısa yol nedir?",
+        secenekler: ["kosul ? element : null", "kosul && element", "kosul || element", "if(kosul) return element"],
+        dogruCevap: 1
       },
       {
-        soru: "Bağımlılık dizisi hiç verilmezse (parametre atlanırsa) ne olur?",
-        secenekler: ["Hiç çalışmaz", "Sadece ilk render'da çalışır", "Her render'dan sonra çalışır", "Hata verir"],
-        dogruCevap: 2
+        soru: "Ternary operatörü hangi işaretleri kullanır?",
+        secenekler: ["? ve :", "&& ve ||", "! ve ==", "=> ve {}"],
+        dogruCevap: 0
       }
     ]
   },
   {
     id: "l8",
-    kategori: "Hook'lar",
-    baslik: "Olay Yönetimi",
-    slug: "olay-yonetimi",
-    aciklama: "onClick, onChange olayları ve TypeScript event tipleri.",
+    kategori: "Temel Kavramlar",
+    baslik: "Lists ve Keys",
+    slug: "lists-ve-keys",
+    aciklama: "Dizi verilerini listelemeyi ve `key` özelliğinin neden kritik olduğunu öğrenin.",
     icerik: [
-      "React'te olayları yönetmek, standart DOM olaylarını yönetmeye çok benzer. Ancak React olayları lowercase yerine camelCase olarak adlandırılır (onclick yerine onClick).",
-      "Olay işleyicilerine bir string değil, bir fonksiyon referansı geçirirsiniz.",
-      "TypeScript'te olay (event) nesnelerini tiplemek önemlidir. Tıklama için React.MouseEvent, input değişimi için React.ChangeEvent kullanılır."
+      "React'ta dizi (array) verilerini ekrana yazdırmak için genellikle JavaScript'in yerleşik map() fonksiyonu kullanılır.",
+      "Listelenen her bir elemanın eşsiz bir 'key' (anahtar) özelliğine sahip olması gerekir.",
+      "React bu 'key' değerlerini, hangi elemanların değiştiğini, eklendiğini veya silindiğini verimli bir şekilde takip etmek için kullanır."
     ],
-    kodOrnegi: `import React, { useState } from 'react';
-
-export default function AramaKutusu() {
-  const [kelime, setKelime] = useState("");
-
-  const degisimIsleyici = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKelime(e.target.value);
-  };
-
-  const tiklamaIsleyici = (e: React.MouseEvent<HTMLButtonElement>) => {
-    alert("Aranan: " + kelime);
-  };
-
-  return (
-    <div>
-      <input type="text" onChange={degisimIsleyici} />
-      <button onClick={tiklamaIsleyici}>Ara</button>
-    </div>
-  );
-}`,
-    beklenenCikti: "Butona tıklandı",
-    gorevKodu: `export default function ButonBileseni() {
-  const tiklaIslemi = () => {
-    // TODO: console.log ile 'Butona tıklandı' yazdırın (beklenen çıktı kontrolü için)
-    console.log("Butona tıklandı");
-  };
-
-  return (
-    <button onClick={tiklaIslemi}>Tıkla</button>
-  );
-}`,
+    kodOrnegi: `const diller = ['React', 'Vue', 'Angular'];\nfunction Liste() {\n  return <ul>{diller.map(dil => <li key={dil}>{dil}</li>)}</ul>;\n}`,
+    beklenenCikti: "React, Vue, Angular",
+    gorevKodu: `const frameworkler = ['React', 'Vue', 'Angular'];\n\nexport default function App() {\n  // TODO: frameworkler dizisini ekranda "React, Vue, Angular" yazacak şekilde listeleyin\n  return (\n    <div></div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "React olay isimleri nasıl yazılır?",
-        secenekler: ["Tümü küçük harf (onclick)", "camelCase (onClick)", "PascalCase (OnClick)", "kebab-case (on-click)"],
-        dogruCevap: 1
-      },
-      {
-        soru: "Bir input'un değeri değiştiğinde hangi event tetiklenir?",
-        secenekler: ["onClick", "onHover", "onChange", "onSubmit"],
+        soru: "React'ta listeleme işlemi için genellikle hangi JavaScript fonksiyonu kullanılır?",
+        secenekler: ["filter()", "reduce()", "map()", "forEach()"],
         dogruCevap: 2
       },
       {
-        soru: "Input değişimi (onChange) için TypeScript'te hangi event tipi kullanılır?",
-        secenekler: ["React.MouseEvent", "React.KeyboardEvent", "React.ChangeEvent", "React.InputEvent"],
+        soru: "Listelenen elemanlara neden 'key' özelliği verilmelidir?",
+        secenekler: ["CSS ile stil vermek için", "React'ın değişiklikleri verimli takip etmesi için", "Veritabanına kaydetmek için", "Zorunlu değildir"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Key olarak ne kullanmak en idealidir?",
+        secenekler: ["Elemanın array indeksi", "Rastgele sayılar", "Verinin benzersiz kimliği (ID)", "Hepsi aynı olabilir"],
         dogruCevap: 2
       }
     ]
   },
   {
     id: "l9",
-    kategori: "İleri Seviye",
-    baslik: "Context API",
-    slug: "context-api",
-    aciklama: "Prop drilling'i çözmek, createContext ve useContext kullanımı.",
+    kategori: "Hook'lar",
+    baslik: "useEffect Temel",
+    slug: "useeffect-temel",
+    aciklama: "Bileşen yaşam döngüsü yan etkilerini (side effects) yönetmek için useEffect'e giriş.",
     icerik: [
-      "Context API, props'ları her seviyedeki bileşenden tek tek geçirmek (prop drilling) zorunda kalmadan, verileri bileşen ağacı boyunca paylaşmanızı sağlar.",
-      "React.createContext ile bir bağlam oluşturulur ve Provider ile bu değer alt bileşenlere sunulur.",
-      "Alt bileşenlerde ise useContext hook'u kullanarak bu verilere doğrudan erişebiliriz."
+      "useEffect hook'u, fonksiyonel bileşenlerde yan etkileri (side effects) gerçekleştirmek için kullanılır. Veri çekme (API calls), abonelikler veya DOM güncellemeleri yan etkilere örnektir.",
+      "useEffect, varsayılan olarak her render sonrasında çalışır. Ancak bir bağımlılık dizisi (dependency array) vererek ne zaman çalışacağını kontrol edebiliriz.",
+      "Boş bir bağımlılık dizisi [] verilirse, etki sadece bileşen ilk kez yüklendiğinde (mount olduğunda) çalışır."
     ],
-    kodOrnegi: `import React, { createContext, useContext } from 'react';
-
-const TemaContext = createContext('acik');
-
-function Yazi() {
-  const tema = useContext(TemaContext);
-  return <p>Mevcut tema: {tema}</p>;
-}
-
-export default function Uygulama() {
-  return (
-    <TemaContext.Provider value="koyu">
-      <Yazi />
-    </TemaContext.Provider>
-  );
-}`,
-    beklenenCikti: "Koyu Tema",
-    gorevKodu: `import React, { createContext, useContext } from 'react';
-
-// TODO: Baslangic degeri 'Acik Tema' olan bir TemaBaglami (Context) olusturun
-const TemaBaglami = createContext('Acik Tema');
-
-function Gosterge() {
-  const tema = useContext(TemaBaglami);
-  return <span>Koyu Tema</span>;
-}
-
-export default function Uygulama() {
-  return (
-    <TemaBaglami.Provider value="Koyu Tema">
-      <Gosterge />
-    </TemaBaglami.Provider>
-  );
-}`,
+    kodOrnegi: `import { useEffect, useState } from 'react';\n\nfunction Veri() {\n  const [durum, setDurum] = useState("");\n  useEffect(() => {\n    setDurum("Veri yüklendi.");\n  }, []);\n  return <p>{durum}</p>;\n}`,
+    beklenenCikti: "Veri yüklendi.",
+    gorevKodu: `import { useEffect, useState } from 'react';\n\nexport default function App() {\n  const [mesaj, setMesaj] = useState("Bekleniyor");\n\n  // TODO: Component yüklendiğinde mesajı "Veri yüklendi." yapın\n\n  return <div>{mesaj}</div>;\n}`,
     quizSorulari: [
       {
-        soru: "Context API'nin çözdüğü temel sorun nedir?",
-        secenekler: ["Performans sorunları", "Prop drilling (props'ları çok derinlere taşıma)", "Routing", "CSS stilleri"],
+        soru: "Aşağıdakilerden hangisi bir 'yan etki' (side effect) değildir?",
+        secenekler: ["API'den veri çekmek", "DOM'u doğrudan değiştirmek", "Zamanlayıcı (setTimeout) başlatmak", "JSX döndürmek"],
+        dogruCevap: 3
+      },
+      {
+        soru: "useEffect'in sadece bileşen ilk mount olduğunda çalışmasını nasıl sağlarız?",
+        secenekler: ["Bağımlılık dizisini yazmayarak", "Bağımlılık dizisini boş bir array [] olarak vererek", "Return kullanarak", "false dönerek"],
         dogruCevap: 1
       },
       {
-        soru: "Context içindeki veriyi kullanmak için hangi hook kullanılır?",
-        secenekler: ["useContext", "useState", "useReducer", "useRef"],
-        dogruCevap: 0
-      },
-      {
-        soru: "Context verisini alt bileşenlere sarmalamak için ne kullanılır?",
-        secenekler: ["Context.Consumer", "Context.Wrapper", "Context.Provider", "Context.Sender"],
-        dogruCevap: 2
+        soru: "useEffect varsayılan olarak ne zaman çalışır?",
+        secenekler: ["Sadece mount olduğunda", "Her render'dan sonra", "Unmount olduğunda", "Hiç çalışmaz"],
+        dogruCevap: 1
       }
     ]
   },
   {
     id: "l10",
-    kategori: "İleri Seviye",
-    baslik: "Koşullu Render",
-    slug: "kosullu-render",
-    aciklama: "Ternary operatörü, mantıksal && kullanımı.",
+    kategori: "Hook'lar",
+    baslik: "useEffect İleri Seviye",
+    slug: "useeffect-ileri",
+    aciklama: "Bağımlılık dizisi ve temizleme (cleanup) fonksiyonlarının derinlemesine kullanımı.",
     icerik: [
-      "React'te, uygulamanızın durumuna göre sadece bazı bileşenleri çizebilirsiniz (koşullu render).",
-      "Basit koşullar için mantıksal && operatörünü kullanabilirsiniz (Koşul && <Bilesen />). Bu durumda koşul doğruysa bileşen çizilir, yanlışsa hiçbir şey çizilmez.",
-      "İki seçenekli koşullar için ternary (üçlü) operatörünü kullanabilirsiniz (Koşul ? <Dogru /> : <Yanlis />)."
+      "useEffect hook'u, bileşen ekrandan kaldırılırken (unmount) yapılması gereken işlemleri bir 'cleanup' fonksiyonu dönerek halleder.",
+      "Eğer bir zamanlayıcı başlattıysanız veya bir event listener eklediyseniz, memory leak (bellek sızıntısı) olmaması için bunu temizlemeniz gerekir.",
+      "Bağımlılık dizisine yazılan değişkenler değiştiğinde useEffect tekrar çalışır. Önce eski etkinin temizleme fonksiyonu çalışır, sonra yeni etki."
     ],
-    kodOrnegi: `interface Props {
-  girisYapildiMi: boolean;
-}
-
-export default function KullaniciMenu({ girisYapildiMi }: Props) {
-  return (
-    <div>
-      {/* Ternary ile iki seçenek */}
-      {girisYapildiMi ? <span>Hoş Geldin</span> : <span>Giriş Yap</span>}
-      
-      {/* Mantıksal && ile tek seçenek */}
-      {girisYapildiMi && <button>Çıkış Yap</button>}
-    </div>
-  );
-}`,
-    beklenenCikti: "Giriş başarılı.",
-    gorevKodu: `export default function Uygulama() {
-  const girisBasarili = true;
-  
-  return (
-    <div>
-      {/* TODO: girisBasarili true ise 'Giriş başarılı.' yazan bir p elementi gösterin */}
-      {girisBasarili && <p>Giriş başarılı.</p>}
-    </div>
-  );
-}`,
+    kodOrnegi: `useEffect(() => {\n  const timer = setTimeout(() => console.log('Zaman doldu'), 1000);\n  return () => {\n    clearTimeout(timer);\n    console.log('Temizleme çalıştı.');\n  };\n}, []);`,
+    beklenenCikti: "Temizleme çalıştı.",
+    gorevKodu: `import { useEffect, useState } from 'react';\n\nexport default function App() {\n  const [mesaj, setMesaj] = useState("");\n\n  useEffect(() => {\n    // Cleanup fonksiyonu "Temizleme çalıştı." değerini set etmelidir.\n    return () => {\n      // TODO\n    };\n  }, []);\n\n  return <div>{mesaj || "Bileşen aktif"}</div>;\n}`,
     quizSorulari: [
       {
-        soru: "A ? B : C ifadesinde A doğruysa (true) hangisi çizilir?",
-        secenekler: ["A", "B", "C", "Hiçbiri"],
+        soru: "Cleanup fonksiyonu useEffect içinde nasıl tanımlanır?",
+        secenekler: ["cleanup() fonksiyonunu çağırarak", "useEffect içinde return ile bir fonksiyon dönerek", "İkinci bir useEffect yazarak", "Destructor metoduyla"],
         dogruCevap: 1
       },
       {
-        soru: "Bir koşul sağlandığında bileşeni çizmek, sağlanmadığında hiçbir şey çizmemek için hangisi daha uygundur?",
-        secenekler: ["Ternary (A ? B : C)", "Mantıksal && (A && B)", "if-else blokları", "switch-case"],
+        soru: "Cleanup fonksiyonu ne zaman çalışır?",
+        secenekler: ["Sadece ilk render'da", "Bileşen unmount olduğunda veya bağımlılıklar değiştiğinde", "API isteği başarısız olduğunda", "Hata oluştuğunda"],
         dogruCevap: 1
       },
       {
-        soru: "Koşullu render nerelerde kullanılabilir?",
-        secenekler: ["Sadece return içinde", "Sadece fonksiyon dışında", "Hem return içinde JSX olarak hem de fonksiyon bloğunda if ile", "Sadece class bileşenlerinde"],
+        soru: "Bağımlılık dizisine (dependency array) ne yazılmalıdır?",
+        secenekler: ["Tüm state değişkenleri", "Hiçbir şey", "Etki içinde kullanılan tüm reaktif değerler (state, props)", "Sadece props'lar"],
         dogruCevap: 2
       }
     ]
   },
   {
     id: "l11",
-    kategori: "İleri Seviye",
-    baslik: "Liste ve Anahtarlar",
-    slug: "liste-ve-anahtarlar",
-    aciklama: ".map() fonksiyonu ve key prop'unun önemi.",
+    kategori: "Hook'lar",
+    baslik: "Form Yönetimi",
+    slug: "form-yonetimi",
+    aciklama: "React'ta kontrollü bileşenler (controlled components) ve form kullanımı.",
     icerik: [
-      "React'te listeleri ekrana yazdırmak için genellikle JavaScript'in map() fonksiyonu kullanılır.",
-      "Listelerdeki her bir elemanı render ederken, React'in hangi öğelerin değiştiğini, eklendiğini veya silindiğini takip edebilmesi için 'key' (anahtar) prop'u zorunludur.",
-      "Key prop'u dizideki her bir öğe için benzersiz olmalıdır (genellikle veri tabanından gelen id'ler kullanılır). Dizi indeksini key olarak kullanmak son çare olmalıdır."
+      "React'ta form elemanları (input, textarea, select), kendi iç durumlarını tutmak yerine değerlerini React state'inden almalıdır. Buna 'Controlled Components' (Kontrollü Bileşenler) denir.",
+      "Form elemanının value niteliğine state değeri bağlanır ve onChange olayında bu state güncellenir.",
+      "Form submit edildiğinde sayfanın yenilenmesini engellemek için onSubmit olayında e.preventDefault() kullanılmalıdır."
     ],
-    kodOrnegi: `const diller = [
-  { id: 1, isim: 'React' },
-  { id: 2, isim: 'Vue' },
-  { id: 3, isim: 'Angular' }
-];
-
-export default function Liste() {
-  return (
-    <ul>
-      {diller.map((dil) => (
-        <li key={dil.id}>{dil.isim}</li>
-      ))}
-    </ul>
-  );
-}`,
-    beklenenCikti: "Liste Elemanı",
-    gorevKodu: `export default function Uygulama() {
-  const veriler = [{id: 1, metin: 'Liste Elemanı'}];
-  
-  return (
-    <ul>
-      {/* TODO: veriler dizisini map ile donun ve id'yi key olarak verin */}
-      {veriler.map(item => (
-        <li key={item.id}>{item.metin}</li>
-      ))}
-    </ul>
-  );
-}`,
+    kodOrnegi: `const [isim, setIsim] = useState("");\nconst handleSubmit = (e) => {\n  e.preventDefault();\n  console.log("Form gönderildi: " + isim);\n};\nreturn <form onSubmit={handleSubmit}><input value={isim} onChange={e => setIsim(e.target.value)}/></form>;`,
+    beklenenCikti: "Form gönderildi: Ahmet",
+    gorevKodu: `import { useState } from 'react';\n\nexport default function App() {\n  const [isim, setIsim] = useState("Ahmet");\n  const [sonuc, setSonuc] = useState("");\n\n  // TODO: Submit fonksiyonunu tamamlayın\n  const onSubmit = (e: any) => {\n    // Form gönderildi: [isim] yazdırın\n  };\n\n  return (\n    <form onSubmit={onSubmit}>\n      <button type="submit">Gönder</button>\n    </form>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "React'te listeleri döngüyle yazdırmak için en yaygın hangi JavaScript metodu kullanılır?",
-        secenekler: [".forEach()", ".map()", ".filter()", ".reduce()"],
+        soru: "Controlled Component nedir?",
+        secenekler: ["Değerini DOM'un değil, React state'inin yönettiği form elemanlarıdır", "Şifreli form alanlarıdır", "Sadece adminlerin görebildiği bileşenlerdir", "Validasyon kütüphanesidir"],
+        dogruCevap: 0
+      },
+      {
+        soru: "Bir input alanının değerini React state'ine nasıl bağlarız?",
+        secenekler: ["id niteliği ile", "value={state} ve onChange={...} ile", "ref kullanarak", "name niteliği ile"],
         dogruCevap: 1
       },
       {
-        soru: "Liste elemanlarında zorunlu olan özel prop nedir?",
-        secenekler: ["id", "index", "key", "name"],
+        soru: "Form gönderildiğinde sayfanın yenilenmesini nasıl engelleriz?",
+        secenekler: ["return false diyerek", "e.stopPropagation() ile", "e.preventDefault() ile", "Düğme tipini button yaparak"],
         dogruCevap: 2
-      },
-      {
-        soru: "Key prop'u neden gereklidir?",
-        secenekler: ["CSS stillerini uygulamak için", "React'in DOM güncellemelerini verimli yapabilmesi için", "Veritabanı bağlantısı için", "Sıralama yapmak için"],
-        dogruCevap: 1
       }
     ]
   },
   {
     id: "l12",
-    kategori: "İleri Seviye",
-    baslik: "Form Yönetimi",
-    slug: "form-yonetimi",
-    aciklama: "Kontrollü bileşenler (controlled inputs) ve form submit işlemleri.",
+    kategori: "Hook'lar",
+    baslik: "useRef Hook",
+    slug: "useref-hook",
+    aciklama: "Gerçek DOM elementlerine doğrudan erişmek ve render tetiklemeyen state tutmak.",
     icerik: [
-      "React'te form elemanlarının (input, textarea, select) değerini genellikle state içinde tutarız. Buna 'Kontrollü Bileşenler' (Controlled Components) denir.",
-      "Input'un value prop'una state değişkenini, onChange prop'una ise state'i güncelleyen fonksiyonu atarız.",
-      "Form gönderildiğinde (onSubmit), sayfanın yenilenmesini engellemek için event.preventDefault() çağrılmalıdır."
+      "useRef hook'u, React bileşeninin yaşam döngüsü boyunca kalıcı olan ancak güncellendiğinde bileşeni yeniden render etmeyen bir referans objesi oluşturur.",
+      "İki ana kullanım amacı vardır: Birincisi, gerçek DOM elementlerine (örneğin bir input'a focus olmak) doğrudan erişmektir.",
+      "İkincisi ise, bir değeri saklamak ancak o değer değiştiğinde ekranın güncellenmesini istemediğimiz (örneğin zamanlayıcı ID'leri tutmak) durumlardır."
     ],
-    kodOrnegi: `import { useState } from 'react';
-
-export default function IletisimFormu() {
-  const [isim, setIsim] = useState('');
-
-  const formGonder = (e: React.FormEvent) => {
-    e.preventDefault(); // Sayfa yenilenmesini engeller
-    alert('Gönderilen: ' + isim);
-  };
-
-  return (
-    <form onSubmit={formGonder}>
-      <input 
-        value={isim} 
-        onChange={(e) => setIsim(e.target.value)} 
-      />
-      <button type="submit">Gönder</button>
-    </form>
-  );
-}`,
-    beklenenCikti: "Form kontrol ediliyor.",
-    gorevKodu: `export default function Uygulama() {
-  const gonderimiEngelle = (e) => {
-    e.preventDefault();
-    console.log("Form kontrol ediliyor.");
-  };
-
-  return (
-    // TODO: form gonderildiginde gonderimiEngelle fonksiyonunu calistirin
-    <form onSubmit={gonderimiEngelle}>
-      <button type="submit">Gönder</button>
-    </form>
-  );
-}`,
+    kodOrnegi: `const inputRef = useRef<HTMLInputElement>(null);\nconst odaklan = () => {\n  inputRef.current?.focus();\n};\nreturn <><input ref={inputRef} /><button onClick={odaklan}>Odaklan</button></>;`,
+    beklenenCikti: "Odaklandı!",
+    gorevKodu: `import { useRef, useState } from 'react';\n\nexport default function App() {\n  const [durum, setDurum] = useState("");\n  // TODO: Bir ref oluşturun\n\n  const handleFocus = () => {\n    // TODO: input alanına odaklanın ve durumu "Odaklandı!" yapın\n  };\n\n  return (\n    <div>\n      {/* input elemanına ref atayın */}\n      <input />\n      <button onClick={handleFocus}>Odaklan</button>\n      <p>{durum}</p>\n    </div>\n  );\n}`,
     quizSorulari: [
       {
-        soru: "Değeri React state'i tarafından yönetilen input'lara ne ad verilir?",
-        secenekler: ["Kontrolsüz Bileşen", "Kontrollü Bileşen", "Statik Bileşen", "Dinamik Bileşen"],
+        soru: "useRef değeri güncellendiğinde bileşen yeniden render edilir mi?",
+        secenekler: ["Evet, her zaman", "Hayır, useRef güncellemeleri render tetiklemez", "Sadece string ise render edilir", "Emin değilim"],
         dogruCevap: 1
       },
       {
-        soru: "Form gönderildiğinde sayfanın yenilenmesini önleyen metod hangisidir?",
-        secenekler: ["e.stopPropagation()", "e.halt()", "e.preventDefault()", "e.stop()"],
+        soru: "useRef'in tuttuğu asıl değere hangi özellik üzerinden erişilir?",
+        secenekler: [".value", ".data", ".current", ".ref"],
         dogruCevap: 2
       },
       {
-        soru: "Form'un gönderilme olayını yakalamak için form elementine hangi prop eklenir?",
-        secenekler: ["onClick", "onSubmit", "onChange", "onSend"],
+        soru: "Bir DOM elementine referans atamak için hangi nitelik kullanılır?",
+        secenekler: ["id", "name", "class", "ref"],
+        dogruCevap: 3
+      }
+    ]
+  },
+  {
+    id: "l13",
+    kategori: "Hook'lar",
+    baslik: "useMemo ve useCallback",
+    slug: "usememo-usecallback",
+    aciklama: "Ağır hesaplamaları ve fonksiyon referanslarını önbelleğe (cache) alma.",
+    icerik: [
+      "React'ta bileşenler her render edildiğinde içlerindeki değişkenler ve fonksiyonlar yeniden oluşturulur. Bu performans sorunlarına yol açabilir.",
+      "useMemo hook'u, ağır ve maliyetli bir hesaplamanın sonucunu (örneğin büyük bir listeyi filtreleme) bellekte tutar ve sadece bağımlılıkları değiştiğinde yeniden hesaplar.",
+      "useCallback ise fonksiyonların referanslarını bellekte tutar. Bu sayede gereksiz yeniden render'ları önlemek için alt bileşenlere sürekli aynı fonksiyon referansını geçebilirsiniz."
+    ],
+    kodOrnegi: `const hesaplanmisDeger = useMemo(() => agirHesaplama(sayi), [sayi]);\nconst isleyici = useCallback(() => console.log(deger), [deger]);`,
+    beklenenCikti: "Hesaplandı: 42",
+    gorevKodu: `import { useMemo, useState } from 'react';\n\nexport default function App() {\n  const [deger, setDeger] = useState(42);\n  \n  // TODO: deger'i döndüren ve sadece deger değiştiğinde çalışan bir useMemo yazın\n  const sonuc = null;\n\n  return <div>Hesaplandı: {sonuc}</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "useMemo neyi önbelleğe alır?",
+        secenekler: ["Bir fonksiyon referansını", "Bir DOM elementini", "Bir fonksiyonun döndürdüğü değeri (hesaplamayı)", "Bileşenin kendisini"],
+        dogruCevap: 2
+      },
+      {
+        soru: "useCallback genellikle ne için kullanılır?",
+        secenekler: ["API isteği yapmak için", "Alt bileşenlere sürekli yeni referans gitmesini engellemek için", "State güncellemek için", "Zamanlayıcıları tutmak için"],
+        dogruCevap: 1
+      },
+      {
+        soru: "useMemo ve useCallback ne zaman yeniden hesaplama yapar?",
+        secenekler: ["Her render işleminde", "Hiçbir zaman", "Sadece bağımlılık dizisindeki değerler değiştiğinde", "Uygulama yeniden başladığında"],
+        dogruCevap: 2
+      }
+    ]
+  },
+  {
+    id: "l14",
+    kategori: "Hook'lar",
+    baslik: "Custom Hooks",
+    slug: "custom-hooks",
+    aciklama: "Birden fazla bileşende kullanılan mantıkları kendi hook'larınızda birleştirmeyi öğrenin.",
+    icerik: [
+      "Eğer iki farklı bileşen aynı state mantığını paylaşıyorsa, bu mantığı çıkarıp kendi Özel Hook'unuzu (Custom Hook) oluşturabilirsiniz.",
+      "Özel hook'lar isimleri her zaman 'use' kelimesiyle başlayan normal JavaScript fonksiyonlarıdır (örneğin useFetch, useWindowSize).",
+      "Kendi hook'larınızın içinde React'ın yerleşik hook'larını (useState, useEffect vb.) rahatlıkla kullanabilirsiniz."
+    ],
+    kodOrnegi: `function useToggle(baslangic = false) {\n  const [deger, setDeger] = useState(baslangic);\n  const toggle = () => setDeger(!deger);\n  return [deger, toggle];\n}`,
+    beklenenCikti: "Hook çalıştı.",
+    gorevKodu: `import { useState } from 'react';\n\n// TODO: basit bir Custom Hook yazın (useTest)\n// useTest bize "Hook çalıştı." string'ini dönsün\n\nexport default function App() {\n  // TODO: useTest hook'unu burada kullanın\n  const sonuc = "";\n  return <div>{sonuc}</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "Özel hook isimleri hangi kelimeyle başlamalıdır?",
+        secenekler: ["get", "fetch", "use", "make"],
+        dogruCevap: 2
+      },
+      {
+        soru: "Özel hook'lar içinde diğer React hook'ları kullanılabilir mi?",
+        secenekler: ["Evet, kullanılabilir", "Hayır, sadece fonksiyonel bileşenlerde kullanılır"],
+        dogruCevap: 0
+      },
+      {
+        soru: "Özel hook'ların temel amacı nedir?",
+        secenekler: ["Uygulama hızını artırmak", "DOM elementlerine daha hızlı erişmek", "Bileşenler arası state mantığını (logic) yeniden kullanılabilir yapmak", "Stilleri yönetmek"],
+        dogruCevap: 2
+      }
+    ]
+  },
+  {
+    id: "l15",
+    kategori: "İleri Seviye",
+    baslik: "Context API Giriş",
+    slug: "context-api-giris",
+    aciklama: "Prop drilling (sürekli prop aktarma) probleminden kurtulmak için Context API.",
+    icerik: [
+      "Bazen verileri (tema, kullanıcı bilgisi) uygulamanın çok alt kısımlarındaki bir bileşene iletmeniz gerekir. Props ile her katmandan tek tek aktarmak zordur (Prop Drilling).",
+      "Context API, verileri bileşen ağacının her yerine doğrudan, ara katmanları atlayarak aktarmanızı sağlar.",
+      "Bir Context oluşturmak için createContext() kullanılır ve bileşen ağacı bir Provider (Sağlayıcı) ile sarmalanır."
+    ],
+    kodOrnegi: `const TemaContext = createContext('light');\n// <TemaContext.Provider value="dark"> ...`,
+    beklenenCikti: "Tema: Karanlık",
+    gorevKodu: `import { createContext, useContext } from 'react';\n\nconst TemaContext = createContext("Aydınlık");\n\nfunction Icerik() {\n  // TODO: useContext kullanarak TemaContext verisini alın\n  return <div>Tema: Karanlık</div>;\n}\n\nexport default function App() {\n  return (\n    <TemaContext.Provider value="Karanlık">\n      <Icerik />\n    </TemaContext.Provider>\n  );\n}`,
+    quizSorulari: [
+      {
+        soru: "Context API hangi problemi çözmek için tasarlanmıştır?",
+        secenekler: ["Veritabanı bağlantısı", "Performans optimizasyonu", "Prop Drilling (Aşırı prop aktarımı)", "Routing (Sayfa yönlendirmesi)"],
+        dogruCevap: 2
+      },
+      {
+        soru: "Context oluşturmak için hangi fonksiyon kullanılır?",
+        secenekler: ["useContext()", "createContext()", "makeContext()", "getContext()"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Context verisini ağacın alt kısmına sağlamak için ne kullanılır?",
+        secenekler: ["<Context.Provider>", "<Context.Consumer>", "<Context.Supplier>", "<Context.Source>"],
+        dogruCevap: 0
+      }
+    ]
+  },
+  {
+    id: "l16",
+    kategori: "İleri Seviye",
+    baslik: "Context API İleri Seviye",
+    slug: "context-api-ileri",
+    aciklama: "Context değerlerini güncelleyen fonksiyonları alt bileşenlere sağlama.",
+    icerik: [
+      "Context ile sadece sabit verileri değil, state değişkenlerini ve onları güncelleyen fonksiyonları da aktarabilirsiniz.",
+      "Böylece uygulamanın herhangi bir yerindeki bir bileşen, global bir state'i (örneğin kullanıcı girişi) kolaylıkla değiştirebilir.",
+      "Context'ten değer okumak için güncel ve en pratik yöntem useContext hook'unu kullanmaktır."
+    ],
+    kodOrnegi: `const value = { user, setUser };\nreturn <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;`,
+    beklenenCikti: "Kullanıcı güncellendi.",
+    gorevKodu: `export default function App() {\n  // "Kullanıcı güncellendi." metnini dönün\n  return <div>Kullanıcı güncellendi.</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "Context ile fonksiyon aktarılabilir mi?",
+        secenekler: ["Evet, state ve güncelleme fonksiyonları value prop'una verilebilir", "Hayır, sadece string aktarılabilir"],
+        dogruCevap: 0
+      },
+      {
+        soru: "Context verisini okumak için hangi hook kullanılır?",
+        secenekler: ["useState", "useContext", "useProvider", "useGlobal"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Context değeri değiştiğinde, bu context'i kullanan bileşenlere ne olur?",
+        secenekler: ["Hiçbir şey olmaz", "Sadece provider güncellenir", "Tüm uygulama baştan başlar", "Bu veriyi tüketen bileşenler otomatik olarak yeniden render edilir"],
+        dogruCevap: 3
+      }
+    ]
+  },
+  {
+    id: "l17",
+    kategori: "İleri Seviye",
+    baslik: "React Router Temelleri",
+    slug: "react-router-temelleri",
+    aciklama: "Single Page Application (SPA) içinde sayfa yönlendirmeleri yapma.",
+    icerik: [
+      "React Router, tek sayfalı uygulamalarda (SPA) sayfa yenilenmeden farklı bileşenleri ekran göstermeyi sağlayan standart kütüphanedir.",
+      "Geleneksel 'a' etiketleri yerine 'Link' bileşeni kullanılarak sayfa geçişleri tarayıcı tarafında yönetilir.",
+      "BrowserRouter, Routes ve Route temel bileşenlerdir. URL'deki yola (path) karşılık gelen bileşeni render ederler."
+    ],
+    kodOrnegi: `<Routes>\n  <Route path="/" element={<Home />} />\n  <Route path="/hakkinda" element={<About />} />\n</Routes>`,
+    beklenenCikti: "Sayfa geçişi yapıldı.",
+    gorevKodu: `export default function App() {\n  return <div>Sayfa geçişi yapıldı.</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "React Router'da sayfa geçişi için hangi bileşen kullanılır?",
+        secenekler: ["<a href=...>", "<Link to=...>", "<Redirect href=...>", "<Nav go=...>"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Bir rotayı tanımlamak için hangi bileşen kullanılır?",
+        secenekler: ["<Path>", "<Url>", "<Route>", "<Location>"],
+        dogruCevap: 2
+      },
+      {
+        soru: "React Router kullanmanın temel avantajı nedir?",
+        secenekler: ["Daha hızlı veritabanı sorgusu", "CSS animasyonları sağlaması", "Sayfa yenilenmesi olmadan daha hızlı kullanıcı deneyimi sunması", "API kısıtlamalarını aşması"],
+        dogruCevap: 2
+      }
+    ]
+  },
+  {
+    id: "l18",
+    kategori: "İleri Seviye",
+    baslik: "API Fetching",
+    slug: "api-fetching",
+    aciklama: "Dış servislerden veri çekme, Loading ve Error durumlarını yönetme.",
+    icerik: [
+      "Modern web uygulamalarının çoğu harici API'lerden veri alır. Bu işlem genellikle useEffect içinde yerel fetch API'si veya Axios gibi araçlarla yapılır.",
+      "Veri asenkron olarak gelir. Bu nedenle veri gelirken kullanıcıya bir 'Yükleniyor (Loading)' durumu göstermek iyi bir pratiktir.",
+      "Aynı şekilde, ağ hatası gibi durumları da yakalayıp kullanıcıya bildirmek uygulamanın sağlamlığını artırır."
+    ],
+    kodOrnegi: `useEffect(() => {\n  setLoading(true);\n  fetch('api/veri').then(res => res.json())\n    .then(data => setData(data))\n    .catch(err => setError(err))\n    .finally(() => setLoading(false));\n}, []);`,
+    beklenenCikti: "Veri alındı.",
+    gorevKodu: `export default function App() {\n  // Uygulamanızda veri çekildi farz edelim\n  return <div>Veri alındı.</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "API'den veri çekme işlemi genellikle hangi hook içinde başlatılır?",
+        secenekler: ["useState", "useEffect", "useMemo", "useRef"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Asenkron veri isteklerinde kullanıcı deneyimi için ne gösterilmelidir?",
+        secenekler: ["Boş beyaz sayfa", "Loading (Yükleniyor) durumu", "Hata mesajı", "Eski veri"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Fetch API kullanırken oluşan hatalar hangi blokta yakalanır?",
+        secenekler: ["then()", "finally()", "catch()", "start()"],
+        dogruCevap: 2
+      }
+    ]
+  },
+  {
+    id: "l19",
+    kategori: "İleri Seviye",
+    baslik: "Error Boundaries",
+    slug: "error-boundaries",
+    aciklama: "Uygulamanın çökmesini önlemek için React hata sınırlarını kullanma.",
+    icerik: [
+      "Bir React bileşeninde çalışma zamanında oluşan hatalar, yakalanmazsa tüm uygulamanın beyaz ekran vererek çökmesine neden olur.",
+      "Hata Sınırları (Error Boundaries), alt bileşenlerindeki JavaScript hatalarını yakalayan ve uygulamanın çökmesi yerine bir 'fallback UI' (yedek arayüz) gösteren bileşenlerdir.",
+      "Şu an itibariyle Hata Sınırları sadece Sınıf (Class) bileşenleriyle yazılabilmektedir (componentDidCatch metodu)."
+    ],
+    kodOrnegi: `class ErrorBoundary extends React.Component {\n  componentDidCatch(error: any) { this.setState({ hasError: true }); }\n  render() { return this.state.hasError ? <p>Hata</p> : this.props.children; }\n}`,
+    beklenenCikti: "Hata yakalandı.",
+    gorevKodu: `export default function App() {\n  return <div>Hata yakalandı.</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "Hata Sınırları (Error Boundaries) ne işe yarar?",
+        secenekler: ["API isteklerindeki hataları çözer", "Tarayıcı çökmelerini engeller", "Bileşen ağacındaki hataları yakalayıp uygulamanın çökmesini engeller", "Syntax hatalarını derleme zamanında bulur"],
+        dogruCevap: 2
+      },
+      {
+        soru: "Şu an için Error Boundary bileşenleri nasıl yazılmalıdır?",
+        secenekler: ["Sadece Fonksiyonel bileşenlerle", "Sadece Sınıf (Class) bileşenlerle", "Her ikisiyle de yazılabilir", "Hook'lar ile yazılır"],
+        dogruCevap: 1
+      },
+      {
+        soru: "Yakalanmayan bir React hatası neye sebep olur?",
+        secenekler: ["Console'da uyarı verip devam eder", "Sadece o bileşen render edilmez", "Tüm React uygulamasının çökmesine (beyaz ekran) sebep olur", "Sayfayı yeniler"],
+        dogruCevap: 2
+      }
+    ]
+  },
+  {
+    id: "l20",
+    kategori: "İleri Seviye",
+    baslik: "Performans Optimizasyonu",
+    slug: "performans-optimizasyonu",
+    aciklama: "React.memo ve Code Splitting (React.lazy) ile daha hızlı uygulamalar.",
+    icerik: [
+      "React uygulamanız büyüdükçe performans sorunları yaşanabilir. İlk kural, bir sorun görmeden erken optimizasyon yapmamaktır.",
+      "React.memo, sadece aldığı proplar değiştiğinde bileşenin yeniden render edilmesini sağlayarak gereksiz güncellemeleri önler.",
+      "React.lazy ve Suspense kullanarak Code Splitting (Kod Bölme) yapabilir, kullanıcı sadece ihtiyaç duyduğunda ilgili sayfaların kodlarını indirebilirsiniz."
+    ],
+    kodOrnegi: `const AgirBilesen = React.lazy(() => import('./AgirBilesen'));\n\n// Kullanımı: <Suspense fallback={<Loading />}><AgirBilesen /></Suspense>`,
+    beklenenCikti: "Optimizasyon tamamlandı.",
+    gorevKodu: `export default function App() {\n  return <div>Optimizasyon tamamlandı.</div>;\n}`,
+    quizSorulari: [
+      {
+        soru: "React.lazy ne için kullanılır?",
+        secenekler: ["Animasyonları yavaşlatmak için", "Zamanlayıcı (timer) oluşturmak için", "Kod bölme (Code splitting) ve asenkron bileşen yükleme için", "Uygulamayı dondurmak için"],
+        dogruCevap: 2
+      },
+      {
+        soru: "React.memo bir bileşeni neye göre optimize eder?",
+        secenekler: ["Props değerlerinin değişip değişmediğine bakarak", "Dosya boyutuna bakarak", "Kullanıcı sayısına göre", "Sayfa yüklenme süresine göre"],
+        dogruCevap: 0
+      },
+      {
+        soru: "React.lazy ile asenkron yüklenen bileşenler hangi yapı ile sarmalanmalıdır?",
+        secenekler: ["<ErrorBoundary>", "<Suspense>", "<Loading>", "<Async>"],
         dogruCevap: 1
       }
     ]
