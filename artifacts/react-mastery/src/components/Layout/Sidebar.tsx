@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, ChevronRight, ChevronLeft, X, User } from 'lucide-react';
+import { CheckCircle2, ChevronRight, X, User } from 'lucide-react';
 import { useCourseContext } from '../../context/CourseContext';
+
+const COLLAPSED_W = 48;
+const EXPANDED_W = 288;
 
 export function Sidebar() {
   const {
@@ -36,7 +39,7 @@ export function Sidebar() {
         )}
       </AnimatePresence>
 
-      {/* Mobile sidebar (unchanged) */}
+      {/* Mobile sidebar */}
       <aside
         className={`fixed top-0 left-0 h-[100dvh] w-72 bg-sidebar border-r border-sidebar-border z-50 flex flex-col transition-transform duration-300 ease-in-out md:hidden ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -44,7 +47,9 @@ export function Sidebar() {
         data-testid="sidebar-mobile"
       >
         <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
-          <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">React Mastery</span>
+          <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            React Mastery
+          </span>
           <button onClick={() => setSidebarOpen(false)} className="text-muted-foreground">
             <X className="w-5 h-5" />
           </button>
@@ -70,12 +75,12 @@ export function Sidebar() {
 
       {/* Desktop collapsible sidebar */}
       <motion.div
-        animate={{ width: sidebarCollapsed ? 16 : 288 }}
+        animate={{ width: sidebarCollapsed ? COLLAPSED_W : EXPANDED_W }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="hidden md:block relative shrink-0 h-[calc(100vh-4rem)] sticky top-16 self-start"
+        className="hidden md:block relative shrink-0 h-[calc(100vh-4rem)] sticky top-16 self-start overflow-visible"
         data-testid="sidebar"
       >
-        {/* Sidebar panel */}
+        {/* Expanded panel */}
         <div
           className={`absolute inset-0 bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden transition-opacity duration-200 ${
             sidebarCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -91,10 +96,48 @@ export function Sidebar() {
           />
         </div>
 
+        {/* Collapsed icon strip */}
+        <AnimatePresence>
+          {sidebarCollapsed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-3 gap-1.5 overflow-y-auto overflow-x-visible custom-scrollbar"
+            >
+              {lessons.map((lesson) => {
+                const isActive = location.pathname === `/egitim/${lesson.slug}`;
+                const isCompleted = completedLessons.includes(lesson.id);
+
+                return (
+                  <LessonDot
+                    key={lesson.id}
+                    lesson={lesson}
+                    isActive={isActive}
+                    isCompleted={isCompleted}
+                  />
+                );
+              })}
+
+              {/* Profile dot */}
+              <div className="mt-auto pt-2 border-t border-sidebar-border w-full flex justify-center pb-2">
+                <Link
+                  to="/profil"
+                  title="Profil"
+                  className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Toggle button — always on the right edge */}
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-10 rounded-full bg-sidebar border border-sidebar-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all shadow-md hover:shadow-[0_0_10px_rgba(34,197,94,0.3)]"
+          className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-6 h-10 rounded-full bg-sidebar border border-sidebar-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all shadow-md hover:shadow-[0_0_10px_rgba(34,197,94,0.3)]"
           title={sidebarCollapsed ? 'Menüyü Aç' : 'Menüyü Kapat'}
         >
           <motion.div
@@ -109,9 +152,64 @@ export function Sidebar() {
   );
 }
 
+/* ─── Single lesson dot for collapsed strip ─── */
+function LessonDot({
+  lesson, isActive, isCompleted
+}: {
+  lesson: { id: string; slug: string; baslik: string };
+  isActive: boolean;
+  isCompleted: boolean;
+}) {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div className="relative flex items-center" style={{ zIndex: hover ? 50 : 'auto' }}>
+      <Link
+        to={`/egitim/${lesson.slug}`}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className={`relative w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shrink-0
+          ${isActive
+            ? 'ring-2 ring-primary ring-offset-1 ring-offset-sidebar bg-primary/20'
+            : 'hover:bg-sidebar-accent/60'
+          }`}
+        data-testid={`link-sidebar-dot-${lesson.slug}`}
+      >
+        {isCompleted ? (
+          <div className={`w-3 h-3 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.7)] ${isActive ? 'scale-125' : ''}`} />
+        ) : (
+          <div className={`w-3 h-3 rounded-full border-2 transition-colors ${
+            isActive ? 'border-primary bg-primary/30' : 'border-sidebar-border bg-sidebar-border/30'
+          }`} />
+        )}
+      </Link>
+
+      {/* Tooltip */}
+      <AnimatePresence>
+        {hover && (
+          <motion.div
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -6 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-popover text-popover-foreground text-xs font-medium px-2.5 py-1.5 rounded-lg border border-border shadow-lg pointer-events-none"
+            style={{ zIndex: 9999 }}
+          >
+            <span className={`mr-1.5 ${isCompleted ? 'text-green-500' : 'text-muted-foreground'}`}>
+              {isCompleted ? '✓' : '○'}
+            </span>
+            {lesson.baslik}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ─── Full sidebar content (expanded state) ─── */
 interface SidebarContentProps {
   categories: readonly string[];
-  filteredLessons: ReturnType<typeof Array.prototype.filter>;
+  filteredLessons: any[];
   completedLessons: string[];
   location: ReturnType<typeof useLocation>;
   setSidebarOpen: (v: boolean) => void;
@@ -124,8 +222,8 @@ function SidebarContent({
   return (
     <>
       <div className="flex-1 overflow-y-auto py-4 custom-scrollbar">
-        {(categories as string[]).map((category, catIndex) => {
-          const categoryLessons = (filteredLessons as any[]).filter((l: any) => l.kategori === category);
+        {categories.map((category, catIndex) => {
+          const categoryLessons = filteredLessons.filter((l: any) => l.kategori === category);
           if (categoryLessons.length === 0) return null;
 
           return (
@@ -160,7 +258,7 @@ function SidebarContent({
                             <CheckCircle2 className={`w-4 h-4 shrink-0 ${isActive ? 'text-primary' : 'text-green-500'}`} />
                           ) : (
                             <div className="w-4 h-4 rounded-full border border-sidebar-border shrink-0 flex items-center justify-center">
-                              <div className="w-1.5 h-1.5 rounded-full bg-sidebar-border"></div>
+                              <div className="w-1.5 h-1.5 rounded-full bg-sidebar-border" />
                             </div>
                           )}
                           <span className="text-sm font-medium truncate">{lesson.baslik}</span>
@@ -174,7 +272,7 @@ function SidebarContent({
             </div>
           );
         })}
-        {(filteredLessons as any[]).length === 0 && (
+        {filteredLessons.length === 0 && (
           <div className="px-6 text-sm text-muted-foreground">Ders bulunamadı.</div>
         )}
       </div>
