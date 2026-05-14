@@ -166,7 +166,7 @@ export function CertificatePage() {
               {/* Signature 1 */}
               <div className="text-center min-w-[140px]">
                 <div className="mb-2 font-serif italic text-primary/80 text-xl leading-none" style={{ fontFamily: 'Georgia, serif' }}>
-                  Ahmet Yılmaz
+                  Emel Soylu
                 </div>
                 <div className="h-px w-full bg-primary/30 mb-1" />
                 <p className="text-[10px] text-white/40 uppercase tracking-widest font-mono">Eğitim Direktörü</p>
@@ -183,7 +183,7 @@ export function CertificatePage() {
               {/* Signature 2 */}
               <div className="text-center min-w-[140px]">
                 <div className="mb-2 font-serif italic text-primary/80 text-xl leading-none" style={{ fontFamily: 'Georgia, serif' }}>
-                  Elif Kaya
+                  Hüseyin Baran Işık
                 </div>
                 <div className="h-px w-full bg-primary/30 mb-1" />
                 <p className="text-[10px] text-white/40 uppercase tracking-widest font-mono">Teknoloji Mimarı</p>
