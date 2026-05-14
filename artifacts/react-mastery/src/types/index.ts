@@ -24,6 +24,7 @@ export interface CourseContextType {
   completedLessons: string[];
   markComplete: (id: string) => void;
   markAllComplete: () => void;
+  resetAllProgress: () => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   sidebarOpen: boolean;

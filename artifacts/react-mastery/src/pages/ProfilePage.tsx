@@ -15,7 +15,7 @@ const BADGES = [
 ];
 
 export function ProfilePage() {
-  const { userName, setUserName, completedLessons, markAllComplete } = useCourseContext();
+  const { userName, setUserName, completedLessons, markAllComplete, resetAllProgress } = useCourseContext();
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(userName);
 
@@ -210,13 +210,18 @@ export function ProfilePage() {
         )}
       </motion.div>
 
-      <div className="mt-16 flex justify-center">
+      <div className="mt-16 flex justify-center gap-3">
         <button
           onClick={markAllComplete}
-          className="text-[10px] text-muted-foreground/20 hover:text-muted-foreground/30 transition-colors select-none"
-          title=""
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
         >
-          v2.0
+          ✓ Tüm Dersleri Tamamla
+        </button>
+        <button
+          onClick={resetAllProgress}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors"
+        >
+          ↺ İlerlemeyi Sıfırla
         </button>
       </div>
     </div>

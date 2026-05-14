@@ -25,6 +25,10 @@ export function CourseProvider({ children }: { children: ReactNode }) {
     setCompletedLessons(allIds);
   };
 
+  const resetAllProgress = () => {
+    setCompletedLessons([]);
+  };
+
   return (
     <CourseContext.Provider value={{
       lessons,
@@ -33,6 +37,7 @@ export function CourseProvider({ children }: { children: ReactNode }) {
       completedLessons,
       markComplete,
       markAllComplete,
+      resetAllProgress,
       searchQuery,
       setSearchQuery,
       sidebarOpen,

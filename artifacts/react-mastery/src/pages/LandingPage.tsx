@@ -70,11 +70,6 @@ export function LandingPage() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto mt-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-8">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            v3.0 Yayında
-          </div>
-
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
             React'ı Ustaca Öğren <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-green-400 to-secondary inline-flex items-baseline gap-1">
